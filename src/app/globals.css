@@ -1,26 +1,79 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/*
+ * Design system — "Systems Mono" (D1)
+ * Terminal-inspired: ink-navy ground, single amber accent, mono labels,
+ * faint engineering grid. Dark-first with a full light theme.
+ */
+
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0a0e14;
+  --surface: #0f151f;
+  --chip: #131a26;
+  --line: #1d2634;
+  --ink: #d9e1ec;
+  --muted: #7e8a9c;
+  --accent: #e8a020;
+  --accent-ink: #0a0e14;
+  --grid-line: rgba(126, 138, 156, 0.055);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f6f4ee;
+  --surface: #f1eee5;
+  --chip: #ece8dd;
+  --line: #dcd8cc;
+  --ink: #1a1f29;
+  --muted: #676f7d;
+  --accent: #9a5b00;
+  --accent-ink: #f6f4ee;
+  --grid-line: rgba(26, 31, 41, 0.05);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-chip: var(--chip);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-attachment: fixed;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
