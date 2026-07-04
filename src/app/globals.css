@@ -66,6 +66,12 @@ body {
   color: var(--accent-ink);
 }
 
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
