@@ -3,7 +3,7 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /*
- * Design system — "Systems Mono" (D1)
+ * Design system: "Systems Mono" (D1)
  * Terminal-inspired: ink-navy ground, single amber accent, mono labels,
  * faint engineering grid. Dark-first with a full light theme.
  */

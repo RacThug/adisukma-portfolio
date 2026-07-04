@@ -21,9 +21,9 @@ export const projects: Project[] = [
     type: "B2B PLATFORM · FULLSTACK",
     role: "Fullstack Developer",
     summary:
-      "Monorepo platform that digitizes inspection-survey workflows and auto-generates 8 types of regulatory PDF documents — with role-based access control, SaaS synchronization, and automated backup pipelines.",
+      "Monorepo platform that digitizes inspection-survey workflows and auto-generates 8 types of regulatory PDF documents, with role-based access control, SaaS synchronization, and automated backup pipelines.",
     problem:
-      "A construction/demolition business needed to meet strict regulatory requirements that traditionally rely on manual paperwork — inspection surveys, work plans, reports, and site signage all filled in by hand.",
+      "A construction/demolition business needed to meet strict regulatory requirements that traditionally rely on manual paperwork: inspection surveys, work plans, reports, and site signage all filled in by hand.",
     built:
       "Contributed to a monorepo platform that digitizes the inspection-survey workflow and auto-generates 8 types of regulatory PDF documents from structured data. The system manages projects, partner organizations, staff, and worker certifications, with role-based access control, hourly synchronization with an external management SaaS, and automated database/file backup pipelines to cloud storage.",
     highlights: [

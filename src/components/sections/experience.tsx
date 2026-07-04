@@ -16,7 +16,7 @@ export function Experience() {
             />
             <p className="font-mono text-xs text-muted">{entry.period}</p>
             <h3 className="mt-1 text-lg font-semibold text-ink">
-              {entry.title} <span className="text-muted">— {entry.company}</span>
+              {entry.title} <span className="text-muted">· {entry.company}</span>
             </h3>
             <p className="mt-0.5 font-mono text-[11px] text-muted">{entry.meta}</p>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink/85">

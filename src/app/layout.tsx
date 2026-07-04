@@ -16,8 +16,8 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.role} (Next.js · NestJS · TypeScript)`,
-    template: `%s — ${site.name}`,
+    default: `${site.name} · ${site.role} (Next.js · NestJS · TypeScript)`,
+    template: `%s · ${site.name}`,
   },
   description:
     "Fullstack web developer in Bali building production web apps with Next.js, NestJS, and TypeScript. Open to frontend, backend, and fullstack roles.",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     "remote developer",
   ],
   openGraph: {
-    title: `${site.name} — ${site.role}`,
+    title: `${site.name} · ${site.role}`,
     description:
       "Fullstack web developer in Bali building production web apps with Next.js, NestJS, and TypeScript.",
     url: site.url,

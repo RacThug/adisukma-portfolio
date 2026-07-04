@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 import { site } from "@/content/site";
 
-export const alt = `${site.name} — ${site.role}`;
+export const alt = `${site.name} · ${site.role}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -24,7 +24,7 @@ export default function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex", color: "#e8a020", fontSize: 28, marginBottom: 24 }}>
-          OPEN_TO_WORK — remote · hybrid · on-site
+          OPEN_TO_WORK: remote · hybrid · on-site
         </div>
         <div style={{ display: "flex", fontSize: 84, fontWeight: 700, color: "#d9e1ec" }}>
           <span style={{ color: "#e8a020" }}>$&nbsp;</span>
@@ -32,7 +32,7 @@ export default function OpengraphImage() {
         </div>
         <div style={{ display: "flex", fontSize: 36, color: "#7e8a9c", marginTop: 16 }}>
           {"// "}
-          {site.role} — Denpasar, Bali
+          {site.role} · Denpasar, Bali
         </div>
         <div style={{ display: "flex", fontSize: 32, color: "#d9e1ec", marginTop: 40 }}>
           Next.js · NestJS · TypeScript

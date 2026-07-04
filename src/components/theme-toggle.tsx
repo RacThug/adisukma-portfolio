@@ -8,7 +8,7 @@ export function ThemeToggle() {
     try {
       localStorage.setItem("theme", next);
     } catch {
-      // storage unavailable (private mode) — theme still applies for this page
+      // storage unavailable (private mode); theme still applies for this page
     }
   }
 

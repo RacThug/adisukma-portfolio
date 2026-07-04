@@ -63,8 +63,7 @@ export const skillGroups: { label: string; items: string[] }[] = [
 ];
 
 export const waysOfWorking = [
-  "AI-first development (AI coding assistants)",
-  "Spec-first workflow",
+  "AI-first, agentic development workflow: spec-driven tasks delegated to AI coding agents (Claude Code), with human review, tests, and E2E verification before ship",
   "Code review",
   "Cross-border team collaboration",
   "Bilingual (EN/JA) documentation",

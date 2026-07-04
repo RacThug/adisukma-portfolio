@@ -2,8 +2,8 @@ import { site } from "@/content/site";
 import { SectionHeading } from "@/components/section-heading";
 
 const facts: [string, string][] = [
-  ["role", "Programmer / Web Developer"],
-  ["company", "Grune Teknologi Indonesia"],
+  ["status", "open to work"],
+  ["roles", "frontend · backend · fullstack"],
   ["location", "Denpasar, Bali (UTC+8)"],
   ["stack", "Next.js · NestJS · TypeScript"],
   ["workflow", "AI-first · spec-first"],

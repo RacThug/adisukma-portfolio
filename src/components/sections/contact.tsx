@@ -11,7 +11,7 @@ export function Contact() {
         <span className="text-accent"> Let’s talk.</span>
       </h2>
       <p className="mt-5 max-w-xl leading-relaxed text-muted">
-        Open to frontend, backend, and fullstack roles — on-site, hybrid, or remote. The fastest
+        Open to frontend, backend, and fullstack roles, on-site, hybrid, or remote. The fastest
         way to reach me is email or LinkedIn.
       </p>
       <div className="mt-9 flex flex-wrap items-center gap-4">

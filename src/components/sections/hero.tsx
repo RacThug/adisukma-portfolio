@@ -9,7 +9,7 @@ export function Hero() {
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:hidden" />
           <span className="relative inline-flex size-1.5 rounded-full bg-accent" />
         </span>
-        OPEN_TO_WORK — remote · hybrid · on-site
+        OPEN_TO_WORK: remote · hybrid · on-site
       </p>
 
       <h1 className="font-mono text-4xl font-bold tracking-tight text-ink md:text-6xl">
@@ -19,7 +19,7 @@ export function Hero() {
 
       <p className="mt-3 font-mono text-sm text-muted md:text-base">
         <span aria-hidden>{"// "}</span>
-        {site.role} — {site.location}
+        {site.role} · {site.location}
       </p>
 
       <p className="mt-7 max-w-xl text-lg leading-relaxed text-ink md:text-xl">
