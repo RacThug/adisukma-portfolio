@@ -15,7 +15,7 @@ export const experience: ExperienceEntry[] = [
     meta: "Full-time · Hybrid · Denpasar, Bali",
     period: "Jun 2025 - Jul 2026",
     description:
-      "Built production web applications end to end, from feature planning through implementation, testing, and delivery, working AI-first with AI coding assistants. Delivered features across frontend and backend for full-scale platforms including a compliance system with automated document generation and a customized e-commerce store.",
+      "Built production web applications end to end, from feature planning through implementation, testing, and delivery. Delivered features across frontend and backend for full-scale platforms including a compliance system with automated document generation and a customized e-commerce store.",
     stack: "TypeScript, Next.js, React, NestJS, Node.js, PHP/Symfony",
   },
   {

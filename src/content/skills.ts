@@ -16,7 +16,6 @@ export const skillGroups: { label: string; items: string[] }[] = [
       "TanStack Query",
       "React Hook Form",
       "Zod",
-      "Apollo Client (GraphQL)",
     ],
   },
   {
@@ -29,7 +28,7 @@ export const skillGroups: { label: string; items: string[] }[] = [
       "GraphQL",
       "Drizzle ORM",
       "Doctrine ORM",
-      "NextAuth / BetterAuth (JWT, RBAC)",
+      "NextAuth (JWT, RBAC)",
     ],
   },
   {
@@ -45,7 +44,7 @@ export const skillGroups: { label: string; items: string[] }[] = [
       "Turborepo (monorepos)",
       "PM2",
       "CI pipelines",
-      "Cloudflare R2 / AWS S3 / MinIO",
+      "Cloudflare R2 / MinIO (S3-compatible storage)",
     ],
   },
   {
@@ -63,7 +62,7 @@ export const skillGroups: { label: string; items: string[] }[] = [
 ];
 
 export const waysOfWorking = [
-  "AI-first, agentic development workflow: spec-driven tasks delegated to AI coding agents (Claude Code), with human review, tests, and E2E verification before ship",
+  "Spec-driven development: clear specs up front, tests and E2E verification before ship",
   "Code review",
   "Cross-border team collaboration",
   "Bilingual (EN/JA) documentation",
