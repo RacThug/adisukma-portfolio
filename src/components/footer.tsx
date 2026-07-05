@@ -8,7 +8,7 @@ export function Footer() {
           © {new Date().getFullYear()} {site.name} · {site.location}
         </p>
         <p>
-          built with Next.js 16 + Tailwind CSS 4 · <span className="text-accent">AI-first</span>
+          built with Next.js 16 + Tailwind CSS 4
         </p>
       </div>
     </footer>

@@ -6,7 +6,7 @@ const facts: [string, string][] = [
   ["roles", "frontend · backend · fullstack"],
   ["location", "Denpasar, Bali (UTC+8)"],
   ["stack", "Next.js · NestJS · TypeScript"],
-  ["workflow", "AI-first · spec-first"],
+  ["workflow", "spec-first · tested end to end"],
 ];
 
 export function About() {
