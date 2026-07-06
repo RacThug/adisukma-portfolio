@@ -5,8 +5,8 @@ export const site = {
   email: "madeadisukmameta@gmail.com",
   linkedin: "https://www.linkedin.com/in/adi-sukma",
   github: "", // add when available
-  // TODO: replace with the real domain once deployed
-  url: "https://adisukma.dev",
+  // TODO: replace with a custom domain if one is purchased later
+  url: "https://adisukma-portfolio.vercel.app",
   availability: "Open to work: remote · hybrid · on-site",
   tagline: {
     pre: "Building ",
