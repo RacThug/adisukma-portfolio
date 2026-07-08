@@ -43,7 +43,7 @@ export function Hero() {
         </Link>
         <a
           href={site.cvPath}
-          download
+          download={site.cvDownloadName}
           className="font-mono text-xs text-muted underline underline-offset-4 transition-colors hover:text-accent"
         >
           download_cv.pdf

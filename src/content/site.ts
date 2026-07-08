@@ -23,4 +23,5 @@ export const site = {
     "I graduated in Information Systems from Institut Teknologi dan Bisnis STIKOM Bali, and I'm open to frontend, backend, and fullstack roles, on-site, hybrid, or remote.",
   ],
   cvPath: "/cv/adi-sukma-cv.pdf",
+  cvDownloadName: "CV_I_Made_Adi_Sukma_Meta_2026.pdf",
 } as const;
