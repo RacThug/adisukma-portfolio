@@ -35,6 +35,9 @@ export const metadata: Metadata = {
     "Indonesia",
     "remote developer",
   ],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: `${site.name} · ${site.role}`,
     description:
@@ -43,6 +46,12 @@ export const metadata: Metadata = {
     siteName: site.name,
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} · ${site.role}`,
+    description:
+      "Fullstack web developer in Bali building production web apps with Next.js, NestJS, and TypeScript.",
   },
 };
 
