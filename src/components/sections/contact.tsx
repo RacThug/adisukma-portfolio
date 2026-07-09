@@ -30,6 +30,14 @@ export function Contact() {
         >
           linkedin →
         </a>
+        <a
+          href={site.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-sm border border-line px-5 py-2.5 font-mono text-xs text-ink transition-colors hover:border-accent hover:text-accent"
+        >
+          github →
+        </a>
       </div>
     </section>
   );
