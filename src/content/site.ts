@@ -4,7 +4,7 @@ export const site = {
   location: "Denpasar, Bali, Indonesia",
   email: "madeadisukmameta@gmail.com",
   linkedin: "https://www.linkedin.com/in/adi-sukma",
-  github: "", // add when available
+  github: "https://github.com/RacThug",
   url: "https://adisukma.dev",
   availability: "Open to work: remote · hybrid · on-site",
   tagline: {

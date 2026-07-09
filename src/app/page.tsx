@@ -15,7 +15,7 @@ const personJsonLd = {
   jobTitle: site.role,
   email: `mailto:${site.email}`,
   url: site.url,
-  sameAs: [site.linkedin],
+  sameAs: [site.linkedin, site.github],
   address: {
     "@type": "PostalAddress",
     addressLocality: "Denpasar",
