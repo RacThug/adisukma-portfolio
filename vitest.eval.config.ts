@@ -3,9 +3,12 @@ import { defineConfig } from "vitest/config";
 
 import { alias } from "./vitest.alias";
 
-// The evals talk to a real model, so they need the real keys. `next dev` loads
-// .env.local for us; Vitest does not.
-config({ path: ".env.local", quiet: true });
+// The evals talk to a real model, so they need the real keys. Next loads these
+// for us; Vitest does not. Both files, in Next's own precedence order - .env.local
+// wins - because a key sitting in the "wrong" one of the two should not produce a
+// "no provider configured" failure that sends you looking for a typo in the key.
+config({ path: ".env", quiet: true });
+config({ path: ".env.local", override: true, quiet: true });
 
 export default defineConfig({
   resolve: { alias },
