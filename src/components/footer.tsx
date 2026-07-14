@@ -1,4 +1,5 @@
 import { site } from "@/content/site";
+import { PRIVACY_NOTE } from "@/lib/chat/copy";
 
 export function Footer() {
   return (
@@ -7,9 +8,10 @@ export function Footer() {
         <p>
           © {new Date().getFullYear()} {site.name} · {site.location}
         </p>
-        <p>
-          built with Next.js 16 + Tailwind CSS 4
-        </p>
+        <p>built with Next.js 16 + Tailwind CSS 4</p>
+      </div>
+      <div className="mx-auto max-w-5xl px-6 pb-8 font-mono text-[11px] leading-relaxed text-muted opacity-70">
+        <p>{PRIVACY_NOTE}</p>
       </div>
     </footer>
   );
