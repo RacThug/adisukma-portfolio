@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { AskAdi } from "@/components/chat/ask-adi";
 import { site } from "@/content/site";
 import "./globals.css";
 
@@ -72,7 +73,17 @@ export default function RootLayout({
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
       </head>
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <body className="min-h-full flex flex-col font-sans">
+        {/*
+          The chat panel sets `inert` on this wrapper while it is open, which is
+          what makes its `aria-modal` an honest claim rather than an assertion.
+          The launcher and panel live outside it so they stay reachable.
+        */}
+        <div id="site-root" className="flex min-h-full flex-1 flex-col">
+          {children}
+        </div>
+        <AskAdi />
+      </body>
     </html>
   );
 }

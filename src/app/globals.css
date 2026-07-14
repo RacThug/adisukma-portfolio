@@ -72,6 +72,19 @@ body {
   }
 }
 
+/*
+ * The chat panel is a full-height sheet on small screens, and a sheet with the
+ * page scrolling behind it feels broken. On desktop it is a floating card, where
+ * locking the page would just be rude. Scoping the lock by media query keeps it
+ * honest through a resize - a JS viewport check would go stale the moment someone
+ * turned their phone sideways.
+ */
+@media (width < 48rem) {
+  body.chat-open {
+    overflow: hidden;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
