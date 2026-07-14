@@ -32,6 +32,13 @@ describe("buildSystemPrompt", () => {
     expect(prompt).toMatch(/never infer/i);
   });
 
+  it("forbids markdown, because the widget renders raw text", () => {
+    // The bot shipped writing "*   **Programmer / Web Developer**", which a
+    // recruiter saw as literal asterisks. The panel renders plain text by
+    // design; the model has to know that.
+    expect(prompt).toMatch(/no markdown/i);
+  });
+
   it("puts behaviour before facts", () => {
     // The model reads top-down. Rules must be established before the material
     // they govern, not appended as an afterthought.

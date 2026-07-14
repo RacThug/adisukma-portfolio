@@ -12,7 +12,7 @@ import {
   SUGGESTIONS,
   UNREACHABLE,
 } from "@/lib/chat/copy";
-import { MAX_MESSAGE_CHARS, textOf } from "@/lib/chat/guards";
+import { MAX_QUESTION_CHARS, textOf } from "@/lib/chat/guards";
 
 import { BotGlyph } from "./bot-glyph";
 
@@ -301,7 +301,7 @@ export function AskAdi() {
                   ref={inputRef}
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
-                  maxLength={MAX_MESSAGE_CHARS}
+                  maxLength={MAX_QUESTION_CHARS}
                   placeholder={ASK_LABEL}
                   aria-label="Ask about Adi"
                   autoComplete="off"

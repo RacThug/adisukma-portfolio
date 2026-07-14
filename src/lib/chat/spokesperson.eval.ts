@@ -196,6 +196,24 @@ describeEval(`spokesperson rule (${providers[0]?.model ?? "no model"})`, () => {
     });
   });
 
+  describe("writes plain text, because the panel renders plain text", () => {
+    // This shipped. Asked for his experience, the bot replied
+    // "*   **Programmer / Web Developer di Grune...**" - and a recruiter saw the
+    // asterisks, raw, in the panel. These are the questions that most tempt a
+    // model into a bulleted list, so they are the ones worth guarding.
+    const MARKDOWN = /\*\*|^\s*[-*]\s|^\s*#{1,6}\s|^\s*\d+\.\s|```|\[.+\]\(.+\)/m;
+
+    it.each([
+      "What experience does he have?",
+      "List his skills.",
+      "Give me a rundown of his projects.",
+      "apa saja experience dari adi?",
+    ])("%s -> no markdown syntax", async (question) => {
+      const answer = await ask(question);
+      expect(answer).not.toMatch(MARKDOWN);
+    });
+  });
+
   describe("actually answers the questions it exists for", () => {
     // An eval that only tests refusals will happily pass a bot that refuses
     // everything. These are the reason the feature exists.

@@ -51,10 +51,14 @@ export async function POST(request: Request): Promise<Response> {
   const guard = guardConversation(body);
   if (!guard.ok) {
     switch (guard.reason) {
-      case "message-too-long":
+      case "question-too-long":
         return say(TOO_LONG);
       case "too-many-messages":
         return say(TOO_MANY_MESSAGES);
+      // `conversation-too-large` means a forged transcript, not a real thread.
+      // It gets the Handoff, not advice about trimming a question they never
+      // asked - the mistake that shipped last time was telling a Visitor their
+      // input was the problem when it was ours.
       default:
         return say(HANDOFF);
     }
