@@ -9,10 +9,33 @@ export const MAX_MESSAGES = 10;
 /**
  * Nobody asks "what projects has he worked on" in 4,000 characters. Anyone who
  * does is not a recruiter.
+ *
+ * This is a cap on **what the Visitor types**, and on nothing else. It was once
+ * applied to every message in the conversation, which was a bug with teeth: the
+ * bot's own answers routinely run past 500 characters, the browser replays the
+ * whole conversation on every turn (docs/adr/0003), and so from the second
+ * question onward the guard rejected the bot's previous answer and told the
+ * Visitor *their question* was too long. The bot gagged itself, and blamed them.
  */
-export const MAX_MESSAGE_CHARS = 500;
+export const MAX_QUESTION_CHARS = 500;
 
-export type GuardFailure = "too-many-messages" | "message-too-long" | "empty" | "malformed";
+/**
+ * The whole conversation, both voices, as a single budget.
+ *
+ * Since the bot's turns are no longer capped individually, this is what stops a
+ * browser posting a megabyte of fabricated transcript and billing us for the
+ * tokens. It is set well clear of a real conversation - ten messages of
+ * full-length questions and generous answers come to about half of it - so it
+ * binds forgeries and nothing else.
+ */
+export const MAX_CONVERSATION_CHARS = 20_000;
+
+export type GuardFailure =
+  | "too-many-messages"
+  | "question-too-long"
+  | "conversation-too-large"
+  | "empty"
+  | "malformed";
 
 export type GuardResult =
   | { ok: true; messages: UIMessage[] }
@@ -107,11 +130,18 @@ export function guardConversation(body: unknown): GuardResult {
 
     const clean = { ...(message as UIMessage), parts: textParts };
 
-    if (textOf(clean).length > MAX_MESSAGE_CHARS) {
-      return { ok: false, reason: "message-too-long" };
+    // The Visitor's turns only. The bot's answers are ours, and they are already
+    // bounded by the route's output-token cap.
+    if (role === "user" && textOf(clean).length > MAX_QUESTION_CHARS) {
+      return { ok: false, reason: "question-too-long" };
     }
 
     sanitised.push(clean);
+  }
+
+  const total = sanitised.reduce((sum, message) => sum + textOf(message).length, 0);
+  if (total > MAX_CONVERSATION_CHARS) {
+    return { ok: false, reason: "conversation-too-large" };
   }
 
   const last = sanitised[sanitised.length - 1];

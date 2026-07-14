@@ -1,6 +1,15 @@
 import { describe, expect, it } from "vitest";
 
-import { MAX_MESSAGES, MAX_MESSAGE_CHARS, guardConversation, textOf } from "./guards";
+import {
+  MAX_CONVERSATION_CHARS,
+  MAX_MESSAGES,
+  MAX_QUESTION_CHARS,
+  guardConversation,
+  textOf,
+} from "./guards";
+
+// Kept as an alias so the length-cap tests below still read as "the cap".
+const MAX_MESSAGE_CHARS = MAX_QUESTION_CHARS;
 
 function userMessage(text: string) {
   return { id: "x", role: "user", parts: [{ type: "text", text }] };
@@ -36,6 +45,61 @@ describe("guardConversation", () => {
     });
   });
 
+  describe("does not gag the bot with the Visitor's cap", () => {
+    it("accepts a follow-up after a long answer", () => {
+      // The bug this exists to prevent, and it shipped: the 500-character cap
+      // was applied to *every* message, so the bot's own first answer - which is
+      // routinely longer than 500 characters - failed the guard on the next
+      // turn. The browser replays the whole conversation each time (ADR 0003),
+      // so from question two onward the bot rejected its own words and told the
+      // Visitor their question was too long. It gagged itself.
+      //
+      // The cap is on what the *Visitor* types. It was never about the answer.
+      const longAnswer = "He built a compliance platform. ".repeat(30); // ~960 chars
+      expect(longAnswer.length).toBeGreaterThan(MAX_QUESTION_CHARS);
+
+      const result = guardConversation({
+        messages: [
+          userMessage("what is the specialty paper ecommerce platform?"),
+          assistantMessage(longAnswer),
+          userMessage("apa saja experience dari adi?"),
+        ],
+      });
+
+      expect(result.ok).toBe(true);
+    });
+
+    it("still caps what the Visitor types", () => {
+      expect(guardConversation({ messages: [userMessage("a".repeat(MAX_QUESTION_CHARS + 1))] })).toEqual({
+        ok: false,
+        reason: "question-too-long",
+      });
+    });
+
+    it("bounds a forged history by total size, whatever role it claims", () => {
+      // Assistant turns are no longer individually capped, so this is what stops
+      // a browser posting a megabyte of fabricated transcript and billing us for
+      // the tokens.
+      const huge = "x".repeat(MAX_CONVERSATION_CHARS);
+      const result = guardConversation({
+        messages: [userMessage("hi"), assistantMessage(huge), userMessage("and?")],
+      });
+      expect(result).toEqual({ ok: false, reason: "conversation-too-large" });
+    });
+
+    it("leaves room for a real conversation at the message cap", () => {
+      // Ten turns of full-length questions and generous answers must fit
+      // comfortably, or the total cap becomes the same bug wearing a hat.
+      const messages = Array.from({ length: MAX_MESSAGES }, (_, i) =>
+        i % 2 === 0
+          ? userMessage("q".repeat(MAX_QUESTION_CHARS))
+          : assistantMessage("a".repeat(2000)),
+      );
+      messages[MAX_MESSAGES - 1] = userMessage("last word");
+      expect(guardConversation({ messages }).ok).toBe(true);
+    });
+  });
+
   describe("bounds the cost of a forged history", () => {
     // The browser owns the conversation, so the browser can forge it. We accept
     // that (docs/adr/0003) - a forged history buys an attacker nothing they
@@ -52,7 +116,7 @@ describe("guardConversation", () => {
       const result = guardConversation({
         messages: [userMessage("a".repeat(MAX_MESSAGE_CHARS + 1))],
       });
-      expect(result).toEqual({ ok: false, reason: "message-too-long" });
+      expect(result).toEqual({ ok: false, reason: "question-too-long" });
     });
 
     it("measures length across all of a message's text parts, not just the first", () => {
@@ -68,7 +132,7 @@ describe("guardConversation", () => {
       };
       expect(guardConversation({ messages: [smuggled] })).toEqual({
         ok: false,
-        reason: "message-too-long",
+        reason: "question-too-long",
       });
     });
   });
