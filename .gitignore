@@ -24,6 +24,9 @@
 .DS_Store
 *.pem
 
+# local issue tracker (see docs/agents/issue-tracker.md)
+/.scratch/
+
 # debug
 npm-debug.log*
 yarn-debug.log*
