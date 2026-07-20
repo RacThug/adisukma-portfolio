@@ -1,5 +1,7 @@
+import Image from "next/image";
 import { site } from "@/content/site";
 import { SectionHeading } from "@/components/section-heading";
+import profilePhoto from "@/assets/profile-photo.png";
 
 const facts: [string, string][] = [
   ["status", "open to work"],
@@ -29,17 +31,20 @@ export function About() {
               </span>
               <span className="font-mono text-[11px] text-muted">avatar.sh</span>
             </div>
-            <div className="flex aspect-square flex-col items-center justify-center gap-3 p-6">
-              <p className="font-mono text-xs text-muted">$ whoami</p>
-              <p className="font-mono text-6xl font-bold tracking-tight text-ink">
-                AS
-                <span className="text-accent animate-[blink_1.2s_steps(1)_infinite] motion-reduce:animate-none">
-                  _
-                </span>
-              </p>
+            <div className="relative aspect-square">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-[radial-gradient(115%_80%_at_50%_12%,color-mix(in_srgb,var(--accent)_9%,transparent),transparent_58%)]"
+              />
+              <Image
+                src={profilePhoto}
+                alt={`${site.name}, ${site.role}`}
+                sizes="(max-width: 768px) 100vw, 360px"
+                className="relative aspect-square w-full object-cover"
+              />
             </div>
             <p className="border-t border-line px-4 py-2.5 font-mono text-[11px] text-muted">
-              photo.jpg · coming_soon
+              photo.png · {site.name.toLowerCase().replace(/\s+/g, "_")}
             </p>
           </div>
 
