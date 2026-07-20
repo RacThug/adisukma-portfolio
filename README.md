@@ -2,7 +2,7 @@
 
 My personal portfolio, built with the same stack I ship professionally - and with an **AI chatbot that answers questions about me as a grounded spokesperson**, not a generic assistant.
 
-ðŸ”— **Live:** [adisukma-portfolio.vercel.app](https://adisukma-portfolio.vercel.app)
+🔗 **Live:** [adisukma-portfolio.vercel.app](https://adisukma-portfolio.vercel.app)
 
 ![Next.js](https://img.shields.io/badge/Next.js_16-000000?style=flat&logo=nextdotjs&logoColor=white)
 ![React](https://img.shields.io/badge/React_19-61DAFB?style=flat&logo=react&logoColor=black)
@@ -62,4 +62,4 @@ docs/chatbot.md   # chatbot design notes
 
 ## License
 
-Personal project. Content Â© Adi Sukma.
+Personal project. Content © Adi Sukma.
