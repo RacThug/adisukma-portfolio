@@ -2,7 +2,7 @@
 
 My personal portfolio, built with the same stack I ship professionally - and with an **AI chatbot that answers questions about me as a grounded spokesperson**, not a generic assistant.
 
-🔗 **Live:** [adisukma-portfolio.vercel.app](https://adisukma-portfolio.vercel.app)
+🔗 **Live:** [adisukma.dev](https://adisukma.dev)
 
 ![Next.js](https://img.shields.io/badge/Next.js_16-000000?style=flat&logo=nextdotjs&logoColor=white)
 ![React](https://img.shields.io/badge/React_19-61DAFB?style=flat&logo=react&logoColor=black)
