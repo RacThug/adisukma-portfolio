@@ -12,8 +12,12 @@ export const alt = `Project case study card from ${site.name}'s portfolio`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// The image route needs its own copy: `generateStaticParams` on the page does
-// not carry over to a metadata route in the same segment.
+// Both of these need their own copy: neither the page's `generateStaticParams`
+// nor its `dynamicParams` carries over to a metadata route in the same segment.
+// Without `dynamicParams`, an unknown slug would render on demand instead of
+// 404ing, and the font read below would stop being build-time only.
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
 }

@@ -49,7 +49,7 @@ export function Projects() {
                 <a
                   href={project.liveUrl}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="text-muted transition-colors hover:text-accent"
                 >
                   live ↗
@@ -59,7 +59,7 @@ export function Projects() {
                 <a
                   href={project.repoUrl}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="text-muted transition-colors hover:text-accent"
                 >
                   source ↗

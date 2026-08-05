@@ -80,7 +80,7 @@ export default async function ProjectPage({ params }: Params) {
                 <a
                   href={project.liveUrl}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="text-accent hover:underline underline-offset-4"
                 >
                   live site ↗
@@ -90,7 +90,7 @@ export default async function ProjectPage({ params }: Params) {
                 <a
                   href={project.repoUrl}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="text-accent hover:underline underline-offset-4"
                 >
                   source ↗
