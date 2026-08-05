@@ -38,12 +38,34 @@ export function Projects() {
                 <Chip key={tech}>{tech}</Chip>
               ))}
             </div>
-            <Link
-              href={`/projects/${project.slug}`}
-              className="mt-6 inline-block font-mono text-xs font-semibold text-accent hover:underline underline-offset-4"
-            >
-              cat case-study.md →
-            </Link>
+            <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs font-semibold">
+              <Link
+                href={`/projects/${project.slug}`}
+                className="text-accent hover:underline underline-offset-4"
+              >
+                cat case-study.md →
+              </Link>
+              {project.liveUrl ? (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted transition-colors hover:text-accent"
+                >
+                  live ↗
+                </a>
+              ) : null}
+              {project.repoUrl ? (
+                <a
+                  href={project.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted transition-colors hover:text-accent"
+                >
+                  source ↗
+                </a>
+              ) : null}
+            </div>
           </article>
         ))}
       </div>

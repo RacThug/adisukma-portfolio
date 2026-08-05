@@ -11,6 +11,10 @@ export interface Project {
   tech: string[];
   /** Subset of tech shown on the home-page card */
   featuredTech: string[];
+  /** Public deployment, when the work is not client-confidential */
+  liveUrl?: string;
+  /** Public source, when the work is not client-confidential */
+  repoUrl?: string;
 }
 
 export const projects: Project[] = [
@@ -84,6 +88,44 @@ export const projects: Project[] = [
       "Codeception",
     ],
     featuredTech: ["PHP 8.3", "Symfony 6.4", "EC-CUBE 4.3", "Doctrine ORM", "MySQL 8"],
+  },
+  {
+    slug: "dewasa-ayu-balinese-calendar",
+    index: "03",
+    title: "Dewasa Ayu: Balinese Auspicious-Day Finder",
+    type: "PERSONAL PROJECT · FULLSTACK",
+    role: "Solo Developer",
+    summary:
+      "Monorepo platform that converts any Gregorian date into the full Balinese Wariga calendar and scores it for six categories of Hindu ceremony, with a color-coded month view and the five nearest good dates for whichever ceremony is selected.",
+    problem:
+      "Picking a good day (dewasa ayu) for a Balinese Hindu ceremony means reading the Wariga calendar: Pawukon, ten concurrent Wewaran cycles, Sasih, and Penanggal/Pangelong. Printed calendars show the raw components but not what they mean for a particular ceremony, so the first-pass shortlist is either guesswork or a trip to a Sulinggih for something a calculation can narrow down.",
+    built:
+      "Built the whole stack solo: a dependency-free TypeScript engine that derives every Balinese calendar component from a date, a rules package where each ceremony is a config object rather than a branch in the engine, and a Next.js 16 front end that renders the month grid, the per-date breakdown, and the five nearest good dates. The deployed site runs the engine in-process; the repo also carries a NestJS service that exposes the same engine over REST for third-party consumers, which is not yet deployed. Scores are weighted per ceremony and every factor behind a rating is shown, so a result can be audited rather than taken on faith. The site states plainly that it is a reference, not a replacement for a Sulinggih.",
+    highlights: [
+      "Dependency-free Wariga engine, cross-checked against an independent Balinese-date library across a 20-year range",
+      "Ceremony rules live in config objects: a new ceremony is a data change, not an engine change",
+      "Transparent scoring, with every factor behind a rating shown in the UI rather than just a verdict",
+      "Turborepo workspace with Vitest unit tests and a Playwright end-to-end suite",
+      "Accessibility as a feature: font scaling, high-contrast mode, WCAG 2.1 AA target",
+    ],
+    tech: [
+      "TypeScript",
+      "Next.js 16",
+      "React 19",
+      "Tailwind CSS v4",
+      "Radix UI",
+      "Framer Motion",
+      "nuqs",
+      "NestJS",
+      "Turborepo",
+      "pnpm",
+      "Vitest",
+      "Playwright",
+      "Vercel",
+    ],
+    featuredTech: ["TypeScript", "Next.js 16", "NestJS", "Turborepo", "Playwright"],
+    liveUrl: "https://dewasa-ayu-web.vercel.app",
+    repoUrl: "https://github.com/RacThug/dewasa-ayu",
   },
 ];
 

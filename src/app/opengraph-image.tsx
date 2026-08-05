@@ -1,11 +1,12 @@
 import { ImageResponse } from "next/og";
 import { site } from "@/content/site";
+import { jetbrainsMono, OG_FONT_FAMILY } from "@/lib/og-fonts";
 
 export const alt = `${site.name} · ${site.role}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpengraphImage() {
+export default async function OpengraphImage() {
   return new ImageResponse(
     (
       <div
@@ -20,7 +21,7 @@ export default function OpengraphImage() {
           backgroundImage:
             "linear-gradient(rgba(126,138,156,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(126,138,156,0.08) 1px, transparent 1px)",
           backgroundSize: "48px 48px",
-          fontFamily: "monospace",
+          fontFamily: OG_FONT_FAMILY,
         }}
       >
         <div style={{ display: "flex", color: "#e8a020", fontSize: 28, marginBottom: 24 }}>
@@ -39,6 +40,6 @@ export default function OpengraphImage() {
         </div>
       </div>
     ),
-    size,
+    { ...size, fonts: await jetbrainsMono() },
   );
 }

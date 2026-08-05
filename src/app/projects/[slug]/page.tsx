@@ -73,6 +73,31 @@ export default async function ProjectPage({ params }: Params) {
           <p className="mt-3 font-mono text-xs text-muted">
             role: <span className="text-ink">{project.role}</span>
           </p>
+          {project.liveUrl || project.repoUrl ? (
+            <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-xs text-muted">
+              <span>links:</span>
+              {project.liveUrl ? (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent hover:underline underline-offset-4"
+                >
+                  live site ↗
+                </a>
+              ) : null}
+              {project.repoUrl ? (
+                <a
+                  href={project.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent hover:underline underline-offset-4"
+                >
+                  source ↗
+                </a>
+              ) : null}
+            </p>
+          ) : null}
         </header>
 
         <CaseSection label="problem">

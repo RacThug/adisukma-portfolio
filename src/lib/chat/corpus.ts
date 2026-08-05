@@ -73,7 +73,11 @@ function projectSection(): string {
       `- What he built: ${p.built}`,
       `- Highlights: ${p.highlights.join("; ")}`,
       `- Tech: ${p.tech.join(", ")}`,
-    ].join("\n"),
+      p.liveUrl ? `- Live: ${p.liveUrl}` : null,
+      p.repoUrl ? `- Source: ${p.repoUrl}` : null,
+    ]
+      .filter(Boolean)
+      .join("\n"),
   );
 
   return [
