@@ -127,6 +127,40 @@ export const projects: Project[] = [
     liveUrl: "https://dewasa-ayu-web.vercel.app",
     repoUrl: "https://github.com/RacThug/dewasa-ayu",
   },
+  {
+    slug: "mebo-photobooth-site",
+    index: "04",
+    title: "Mebo Photobooth: Bilingual Local-Business Site",
+    type: "CLIENT SITE · FRONTEND & SEO",
+    role: "Solo Developer",
+    summary:
+      "Fully prerendered marketing site for a Bali photobooth-rental business, with Indonesian and English served as two separate indexable URL trees and every call to action pointed at one conversion: a WhatsApp booking chat.",
+    problem:
+      "The business sells through Instagram and WhatsApp, so nothing it publishes is reachable from a search for \"sewa photobooth Bali\". It also sells into two markets at once: local Indonesian customers, and the destination-wedding traffic that searches in English. One page in one language would miss half the demand, and two languages behind a toggle would leave one of them unindexable.",
+    built:
+      "Built the site solo on Next.js 16, every route prerendered at build time. Indonesian sits at / and English at /en as independent URLs rather than a toggle, targeting different keywords rather than translating each other, with hreflang linking only genuinely corresponding pages. All copy is typed content in one module per locale, so a missing field fails the build instead of rendering an empty section, and LocalBusiness, Offer and FAQPage JSON-LD are generated from that same content. Every section is a Server Component: the two client components render null and attach behaviour from the outside by data attribute, so adding motion or a lightbox never converts a section to a client component. Deployed on Vercel; the business domain is not registered yet, so a host-matched header keeps the *.vercel.app copies out of the index until it is.",
+    highlights: [
+      "Two locales as two indexable URL trees, each aimed at its own market instead of translating the other",
+      "One conversion path: every call to action opens a prefilled WhatsApp chat, tagged with a single data attribute",
+      "Server Components throughout: the two client components render null and attach behaviour by data attribute",
+      "Animation that cannot break the page: hidden start states come from JavaScript rather than CSS, and the LCP hero is never animated",
+      "GSAP ships in a lazy chunk, so it stays off the initial payload and reduced-motion visitors never download it",
+      "LocalBusiness, Offer and FAQPage structured data generated from the same typed content the page renders",
+      "Image size ladder and allowed qualities trimmed to the widths the layout actually requests",
+    ],
+    tech: [
+      "TypeScript",
+      "Next.js 16",
+      "React 19",
+      "Tailwind CSS v4",
+      "GSAP / ScrollTrigger",
+      "next/image",
+      "JSON-LD",
+      "Vercel",
+    ],
+    featuredTech: ["TypeScript", "Next.js 16", "Tailwind CSS v4", "GSAP", "Vercel"],
+    liveUrl: "https://mebo-landing-page.vercel.app",
+  },
 ];
 
 export function getProject(slug: string): Project | undefined {
