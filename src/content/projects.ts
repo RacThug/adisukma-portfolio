@@ -138,7 +138,7 @@ export const projects: Project[] = [
     problem:
       "The business sells through Instagram and WhatsApp, so nothing it publishes is reachable from a search for \"sewa photobooth Bali\". It also sells into two markets at once: local Indonesian customers, and the destination-wedding traffic that searches in English. One page in one language would miss half the demand, and two languages behind a toggle would leave one of them unindexable.",
     built:
-      "Built the site solo on Next.js 16, every route prerendered at build time. Indonesian sits at / and English at /en as independent URLs rather than a toggle, targeting different keywords rather than translating each other, with hreflang linking only genuinely corresponding pages. All copy is typed content in one module per locale, so a missing field fails the build instead of rendering an empty section, and LocalBusiness, Offer and FAQPage JSON-LD are generated from that same content. Every section is a Server Component: the two client components render null and attach behaviour from the outside by data attribute, so adding motion or a lightbox never converts a section to a client component. Deployed on Vercel; the business domain is not registered yet, so a host-matched header keeps the *.vercel.app copies out of the index until it is.",
+      "Built the site solo on Next.js 16, every route prerendered at build time. Indonesian sits at / and English at /en as independent URLs rather than a toggle, targeting different keywords rather than translating each other, with hreflang linking only genuinely corresponding pages. All copy is typed content in one module per locale, so a missing field fails the build instead of rendering an empty section, and LocalBusiness, Offer and FAQPage JSON-LD are generated from that same content. Every section is a Server Component: the two client components render null and attach behaviour from the outside by data attribute, so adding motion or a lightbox never converts a section to a client component. Deployed on Vercel under the business's own domain, with a host-matched header keeping the *.vercel.app copies out of the index so only the canonical host is crawled.",
     highlights: [
       "Two locales as two indexable URL trees, each aimed at its own market instead of translating the other",
       "One conversion path: every call to action opens a prefilled WhatsApp chat, tagged with a single data attribute",
@@ -159,7 +159,7 @@ export const projects: Project[] = [
       "Vercel",
     ],
     featuredTech: ["TypeScript", "Next.js 16", "Tailwind CSS v4", "GSAP", "Vercel"],
-    liveUrl: "https://mebo-landing-page.vercel.app",
+    liveUrl: "https://mebophotobooth.biz.id",
   },
 ];
 
