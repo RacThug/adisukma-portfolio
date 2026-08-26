@@ -19,6 +19,21 @@ the Corpus, the chatbot does not know it. The Corpus is a projection of what the
 second, separately maintained account of Adi.
 _Avoid_: Knowledge base, training data, context
 
+**Live Facts**:
+The one thing the chatbot knows that is not in the Corpus: how recently each allowlisted GitHub repository
+was pushed, read at request time and appended after the Corpus. The repos themselves are still chosen by
+Adi in `src/content/github.ts` - only the dates are live. They are kept outside the Corpus rather than
+folded into it so that "the Corpus is exactly the site" stays a testable claim. See `docs/adr/0005`.
+_Avoid_: Feed, activity stream, integration
+
+**Hiring FAQ**:
+The part of the Corpus that answers intent and logistics rather than history: when he can start,
+whether he would relocate, what he wants next. It exists because no amount of project write-up implies
+those, and the Spokesperson Rule forbids the bot from inferring them - so every one of them used to be
+a Handoff. Lives in `src/content/hiring.ts`, renders on the page, and reaches the Corpus by the same
+projection as everything else.
+_Avoid_: Canned answers, scripted replies, prepared responses
+
 **Spokesperson Rule**:
 The chatbot is a spokesperson, not a stand-in. It answers only from the Corpus. Where the Corpus is silent it
 does not guess, infer, or deny. It performs a Handoff instead.

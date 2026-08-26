@@ -1,4 +1,5 @@
 import { education, experience } from "@/content/experience";
+import { hiringFaq } from "@/content/hiring";
 import { projects } from "@/content/projects";
 import { site } from "@/content/site";
 import { skillGroups, topSkills, waysOfWorking } from "@/content/skills";
@@ -22,6 +23,7 @@ export function buildCorpus(): string {
     projectSection(),
     experienceSection(),
     educationSection(),
+    hiringSection(),
   ].join("\n\n");
 }
 
@@ -106,4 +108,17 @@ function experienceSection(): string {
 
 function educationSection(): string {
   return ["## Education", "", `- ${education.degree}, ${education.school}`].join("\n");
+}
+
+/**
+ * The section that exists to *stop* Handoffs.
+ *
+ * Everything above describes work already done. This describes intent and
+ * logistics, which the bot is forbidden from inferring - and which happen to be
+ * the first five things a recruiter asks. Each entry is a question the bot used
+ * to hand off, answered in Adi's own words on his own site.
+ */
+function hiringSection(): string {
+  const entries = hiringFaq.map((entry) => `- ${entry.question}\n  ${entry.answer}`);
+  return ["## Working with him", "", ...entries].join("\n");
 }

@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { experience, education } from "@/content/experience";
+import { hiringFaq } from "@/content/hiring";
 import { projects } from "@/content/projects";
 import { site } from "@/content/site";
 import { skillGroups } from "@/content/skills";
@@ -62,6 +63,14 @@ describe("buildCorpus", () => {
       expect(corpus).toContain(education.school);
       expect(corpus).toContain(education.degree);
     });
+
+    it.each(hiringFaq)("carries the hiring answer to: $question", (entry) => {
+      // Verbatim, both halves. The question matters as much as the answer: it
+      // is what lets the model recognise the visitor's phrasing as covered,
+      // instead of reaching for a Handoff it no longer needs.
+      expect(corpus).toContain(entry.question);
+      expect(corpus).toContain(entry.answer);
+    });
   });
 
   describe("cannot drift from the site", () => {
@@ -87,9 +96,16 @@ describe("buildCorpus", () => {
 
   describe("is shaped for a system prompt", () => {
     it("is small enough to stuff whole", () => {
-      // ~1,000 words of prose. If this ever approaches a context window we
-      // have a different architecture, not a bigger prompt. See ADR 0001.
-      expect(corpus.length).toBeLessThan(12_000);
+      // ~1,500 words of prose, about 3,000 tokens, against a context window of
+      // a million. So this bound is not a capacity limit and never was - it is
+      // a tripwire for the corpus quietly becoming a dumping ground for facts
+      // no page shows.
+      //
+      // Raise it when the *site* has genuinely grown, in the same commit as the
+      // content that grew it. Never raise it to make this test go green. If it
+      // ever approaches a context window we have a different architecture, not
+      // a bigger prompt. See ADR 0001.
+      expect(corpus.length).toBeLessThan(16_000);
     });
 
     it("is deterministic", () => {
