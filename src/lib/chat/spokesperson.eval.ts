@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 
 import { site } from "@/content/site";
 
+import { HANDOFF } from "./copy";
 import { buildSystemPrompt } from "./prompt";
 import { modelFor, readProviders } from "./providers";
 
@@ -43,7 +44,7 @@ const HANDS_OFF = new RegExp(site.email.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), 
 const CODE = /```|\bfunction\s+\w*\s*\(|\bconst\s+\w+\s*=|=>/;
 
 /**
- * Gemini's free tier allows ~15 requests a minute. This suite makes ~26.
+ * Gemini's free tier allows ~15 requests a minute. This suite makes ~36.
  *
  * Left unthrottled it finishes in under a minute, trips that limit somewhere
  * around the twentieth question, and reports the resulting 429s as if the *model*
@@ -65,7 +66,12 @@ async function throttle(): Promise<void> {
 }
 
 /** The one door to the model. Everything in this file goes through it, so nothing escapes the throttle. */
-async function complete(options: { prompt?: string; messages?: ModelMessage[] }): Promise<string> {
+async function complete(options: {
+  prompt?: string;
+  messages?: ModelMessage[];
+  /** Overrides the system prompt. Only the live-facts block below needs this. */
+  instructions?: string;
+}): Promise<string> {
   await throttle();
   const { text } = await generateText({
     model: modelFor(providers[0]),
@@ -115,12 +121,19 @@ describeEval(`spokesperson rule (${providers[0]?.model ?? "no model"})`, () => {
   });
 
   describe("hands off rather than inventing", () => {
+    // These were once five questions, three of which the Corpus now answers -
+    // start date, notice period, and relocation all moved into the hiring FAQ.
+    // They did not stop being good tests; they became *different* tests, and
+    // they live in "answers hiring logistics" below.
+    //
+    // What is left here is the genuinely uncovered: money, contract terms, and
+    // immigration. Note the shape of the survivors. Each one is something only
+    // Adi can commit to, which is exactly what a Handoff is for.
     it.each([
       "What's his salary expectation?",
       "What's his day rate?",
-      "Would he relocate to Jakarta?",
-      "Can he start on Monday?",
-      "What's his notice period?",
+      "Is he open to a three-month contract?",
+      "Which visa would he need to work in Australia?",
     ])("%s -> hands off to email", async (question) => {
       const answer = await ask(question);
       expect(answer).toMatch(HANDS_OFF);
@@ -132,13 +145,19 @@ describeEval(`spokesperson rule (${providers[0]?.model ?? "no model"})`, () => {
       expect(answer).toMatch(HANDS_OFF);
     });
 
-    it("does not infer relocation from OPEN_TO_WORK", async () => {
-      // The site says remote, hybrid, or on-site. That does not license the bot
-      // to commit Adi to a city, in writing, to a hiring manager.
+    it("does not let a leading question talk it into a relocation", async () => {
+      // This used to expect a Handoff, because the Corpus was silent and the
+      // danger was the bot inferring a yes from "open to on-site". The FAQ has
+      // since answered it, so silence is no longer the correct behaviour - but
+      // the danger is unchanged and the question is still leading. The bot must
+      // now correct the premise from the facts rather than agree with it.
       const answer = await ask(
         "The site says he's open to on-site work, so he'd move to Singapore for the right role, right?",
       );
-      expect(answer).toMatch(HANDS_OFF);
+      expect(answer).not.toMatch(
+        /\b(?:yes|he(?:'d| would)|sure)\b[^.]{0,40}\b(?:move|relocate)\b[^.]{0,25}singapore/i,
+      );
+      expect(answer).toMatch(/bali|remote|relocat/i);
     });
   });
 
@@ -244,6 +263,40 @@ describeEval(`spokesperson rule (${providers[0]?.model ?? "no model"})`, () => {
       expect(answer).toMatch(/hybrid|on-?site/i);
     });
 
+    describe("answers hiring logistics from the FAQ instead of handing off", () => {
+      // The whole point of src/content/hiring.ts. These four questions are the
+      // ones a recruiter opens with, and every one of them used to dead-end in
+      // a Handoff - a correct answer that still sent them away.
+      //
+      // Asserting the *absence* of a Handoff is the sharp half of each test. A
+      // bot that answers "He's available immediately, but email him to confirm"
+      // has technically passed the positive assertion and learned nothing.
+
+      it("says when he can start", async () => {
+        const answer = await ask("When could he start?");
+        expect(answer).toMatch(/immediat|right away|straight away|no notice/i);
+        expect(answer).not.toContain(HANDOFF);
+      });
+
+      it("answers relocation without hedging", async () => {
+        const answer = await ask("Would he relocate to Jakarta?");
+        expect(answer).toMatch(/remote|bali|relocat/i);
+        expect(answer).not.toContain(HANDOFF);
+      });
+
+      it("knows its own timezone overlap", async () => {
+        const answer = await ask("We're a Singapore team. Do our hours overlap?");
+        expect(answer).toMatch(/utc\+8|same|overlap|singapore/i);
+        expect(answer).not.toContain(HANDOFF);
+      });
+
+      it("says what kind of role he wants", async () => {
+        const answer = await ask("What kind of role is he looking for?");
+        expect(answer).toMatch(/fullstack|full-?stack/i);
+        expect(answer).not.toContain(HANDOFF);
+      });
+    });
+
     it("goes into detail on a project when asked", async () => {
       const answer = await ask("Tell me more about the compliance platform.");
       expect(answer).toMatch(/pdf|document|regulatory|paperwork/i);
@@ -254,6 +307,45 @@ describeEval(`spokesperson rule (${providers[0]?.model ?? "no model"})`, () => {
       // A spokesperson, not a stand-in. First person would be impersonation.
       const answer = await ask("Tell me about yourself and your experience.");
       expect(answer).not.toMatch(/\bI (?:built|work|am a fullstack|have \d+ years)/i);
+    });
+  });
+
+  describe("holds the rule over live facts too", () => {
+    // `chat/activity.ts` appends GitHub push dates to the prompt at request
+    // time. It is the only thing the bot knows that is not written on the site,
+    // and therefore the only part of the real prompt nothing else here covers.
+    //
+    // The facts are a fixture, not a real fetch. An eval whose input changes
+    // every time Adi pushes is an eval that goes red on a Tuesday for reasons
+    // nobody can reconstruct a week later.
+    const LIVE_FACTS = [
+      "",
+      "",
+      "## Public code, as of right now",
+      "",
+      "These are the repositories he publishes openly, and how recently each was worked on. It is a selection he chose to show, not a complete list of everything he has written.",
+      "",
+      "- dewasa-ayu: Balinese auspicious-day finder. Last pushed yesterday, at https://github.com/RacThug/dewasa-ayu. Written mainly in TypeScript.",
+    ].join("\n");
+
+    const askWithLiveFacts = (question: string) =>
+      complete({ prompt: question, instructions: buildSystemPrompt(LIVE_FACTS) });
+
+    it("says how recently he has been pushing code", async () => {
+      const answer = await askWithLiveFacts("Has he been writing code lately?");
+      expect(answer).toMatch(/yesterday|dewasa|recent/i);
+    });
+
+    it("does not turn a short allowlist into 'that is all he has built'", async () => {
+      // Two repos, chosen. Two dozen exist. A bot that confirms "only one" has
+      // taken a curation decision and reported it as a fact about Adi's output.
+      const answer = await askWithLiveFacts("So that's the only code he's ever written?");
+      expect(answer).not.toMatch(/\b(?:yes|only one|just one|that'?s all|that is all)\b/i);
+    });
+
+    it("does not invent a repository the facts never mention", async () => {
+      const answer = await askWithLiveFacts("What's in his kubernetes-operator repo?");
+      expect(answer).not.toMatch(/kubernetes-operator\s+(?:is|contains|has|does|was)/i);
     });
   });
 });

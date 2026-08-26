@@ -9,10 +9,12 @@ lives in `CONTEXT.md`. Read those first: this file is only the operational half.
 src/lib/chat/
   corpus.ts     the facts, projected from src/content - never edited by hand
   prompt.ts     the behaviour: the Spokesperson Rule, in the words the model reads
+  activity.ts   the only facts not in this repo: GitHub push dates. Fails to ""
   copy.ts       everything the bot and the widget say. Imports nothing but `site`
   guards.ts     stateless caps on a conversation the browser could have forged
   providers.ts  a provider is three strings; retryable vs not
   store.ts      the circuit-breaker and the Question Log. Both fail open
+src/lib/github.ts           the allowlisted repos, fetched once an hour. Fails to []
 src/app/api/chat/route.ts   the only server code
 src/components/chat/        the launcher and panel
 ```
@@ -48,6 +50,22 @@ one it rotted for months and had to be deleted.
 
 If you want the bot to be able to say something, put it on the site. If it isn't worth showing a
 visitor, it isn't worth telling a recruiter.
+
+**The one exception, and its fence.** `chat/activity.ts` appends GitHub push dates to the prompt at
+request time, so the bot can say the code is alive without anyone typing a date that would then rot.
+The *selection* is still curated: `src/content/github.ts` is an allowlist, and a repo the bot can
+mention is a repo Adi put there. Only the dates are live. This matters because the account also holds
+a meme picker, a blackjack game and a password generator, all "just basic X with javascript" - sorting
+by push date and taking the top few would put those in front of a recruiter next to four written-up
+case studies.
+
+Note also what is *not* fetched: the GitHub profile bio, which still says "AI-first" - branding removed
+from the site in 3c77ca4 and guarded against by name in `corpus.test.ts` and the evals. Pulling the bio
+would reintroduce that drift through an automatic door nobody reviews.
+
+**Recruiters ask about the FAQ, so keep it current.** `src/content/hiring.ts` answers start date,
+relocation, timezone overlap, and what he wants next. Those were Handoffs until they were written down,
+and they will silently become wrong ones if he takes a job and nobody edits the file.
 
 ## The guards
 
@@ -96,7 +114,7 @@ impress.
 pnpm eval
 ```
 
-~20 adversarial questions against the real model, asserting on shape rather than exact strings
+~36 adversarial questions against the real model, asserting on shape rather than exact strings
 (a model is not a pure function; an eval that string-matches is an eval that fails randomly).
 
 It is doing two jobs:

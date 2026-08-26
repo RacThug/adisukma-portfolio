@@ -6,6 +6,7 @@ import {
 } from "ai";
 import { after } from "next/server";
 
+import { buildActivityFacts } from "@/lib/chat/activity";
 import { HANDOFF, OUT_OF_BUDGET, TOO_LONG, TOO_MANY_MESSAGES, UNREACHABLE } from "@/lib/chat/copy";
 import { guardConversation, textOf } from "@/lib/chat/guards";
 import { buildSystemPrompt } from "@/lib/chat/prompt";
@@ -90,7 +91,11 @@ export async function POST(request: Request): Promise<Response> {
   // sits between a Visitor and their answer. Next 16 ships it for exactly this.
   after(() => logQuestion(question));
 
-  const instructions = buildSystemPrompt();
+  // The one fact in the prompt that is not in this repository. It is cached for
+  // an hour, so this is almost always a cache read; on a miss it is one GitHub
+  // round trip before the first token, and on a failure it is an empty string
+  // and a prompt identical to yesterday's. It cannot reject - see `activity.ts`.
+  const instructions = buildSystemPrompt(await buildActivityFacts());
 
   const stream = createUIMessageStream({
     execute: async ({ writer }) => {

@@ -32,3 +32,8 @@ deciding whether to hire you.
 **Consequence.** Anything the bot should be able to say must exist in `src/content/*.ts` and therefore on the
 page. If a fact is worth telling a recruiter, it is worth showing a Visitor. Bot-only material is limited to
 *behaviour* (refusal rules, tone, the Handoff text), never *facts*.
+
+**Amended by ADR 0005.** One class of fact is now read from outside this repository: how recently each
+allowlisted GitHub repo was pushed. The amendment is deliberately narrow - the *selection* of repos is still
+content Adi wrote, only the dates are live - and it exists because recency is the one property a written
+fact cannot hold. Point 2 above otherwise stands unchanged.

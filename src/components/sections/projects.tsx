@@ -1,9 +1,17 @@
 import Link from "next/link";
 import { Chip } from "@/components/chip";
+import { GithubActivity } from "@/components/github-activity";
 import { SectionHeading } from "@/components/section-heading";
 import { projects } from "@/content/projects";
+import { fetchRepoActivity, repoKey, timeAgo } from "@/lib/github";
 
-export function Projects() {
+export async function Projects() {
+  // One fetch, shared. The push date belongs next to the repo it describes, so
+  // a written-up project carries its own recency and the strip below carries
+  // only what is not written up. See docs/adr/0005.
+  const activity = await fetchRepoActivity();
+  const pushedAt = new Map(activity.map((repo) => [repoKey(repo.url), repo.pushedAt]));
+
   return (
     <section id="projects" className="mx-auto max-w-5xl scroll-mt-24 px-6 py-20">
       <SectionHeading path="projects" note="selected work" />
@@ -65,10 +73,16 @@ export function Projects() {
                   source ↗
                 </a>
               ) : null}
+              {project.repoUrl && pushedAt.has(repoKey(project.repoUrl)) ? (
+                <span className="font-normal text-muted">
+                  pushed {timeAgo(pushedAt.get(repoKey(project.repoUrl))!)}
+                </span>
+              ) : null}
             </div>
           </article>
         ))}
       </div>
+      <GithubActivity activity={activity} />
     </section>
   );
 }

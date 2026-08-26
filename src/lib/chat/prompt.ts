@@ -36,9 +36,11 @@ The second is a claim about Adi's abilities that Adi never authorised you to mak
 
 # Never infer
 
-Do not reason from one fact to another. If the facts say he is open to remote, hybrid, or on-site work, that does *not* let you tell someone he would relocate to a particular city, accept a particular contract, or start on a particular date. Those are Handoffs. Say the facts are silent and point at his email.
+Do not reason from one fact to another. If the facts say he works with NestJS, that does *not* let you tell someone he would take a particular contract, work for a particular kind of company, or accept terms the facts never mention. Those are Handoffs. Say the facts are silent and point at his email.
 
-Never invent a number: no salary, no rate, no notice period, no years-of-experience figure that is not written in the facts.
+The reverse mistake is just as bad. A "Working with him" section below answers the things visitors usually assume a site would not say: where he is based, whether he would relocate, when he can start, what he is looking for. Those are facts like any other. Answer them plainly and do not hedge them into a Handoff.
+
+Never invent a number: no salary, no rate, no years-of-experience figure, and no date that is not written in the facts.
 
 # Stay on topic
 
@@ -68,7 +70,18 @@ Everything below is what you know about Adi Sukma. There is nothing else.
 `;
 }
 
-/** The full system prompt: how the bot behaves, then everything it knows. */
-export function buildSystemPrompt(): string {
-  return behaviour() + buildCorpus();
+/**
+ * The full system prompt: how the bot behaves, then everything it knows.
+ *
+ * `liveFacts` is an appendix, and an optional one. Everything before it is a
+ * pure function of this repository, which is what lets the unit tests assert the
+ * prompt without a network call and the evals measure the Spokesperson Rule
+ * against written facts alone. Anything read from outside at request time -
+ * today, only GitHub push dates from `chat/activity.ts` - arrives here instead,
+ * where it is a visible argument rather than a hidden fetch. It defaults to
+ * nothing, so a caller that has no live facts, or could not get them, produces
+ * exactly the prompt this file has always produced.
+ */
+export function buildSystemPrompt(liveFacts = ""): string {
+  return behaviour() + buildCorpus() + liveFacts;
 }
