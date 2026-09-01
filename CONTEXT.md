@@ -22,7 +22,7 @@ _Avoid_: Knowledge base, training data, context
 **Live Facts**:
 The one thing the chatbot knows that is not in the Corpus: how recently each allowlisted GitHub repository
 was pushed, read at request time and appended after the Corpus. The repos themselves are still chosen by
-Adi in `src/content/github.ts` - only the dates are live. They are kept outside the Corpus rather than
+Adi in `src/content/github.json` - only the dates are live. They are kept outside the Corpus rather than
 folded into it so that "the Corpus is exactly the site" stays a testable claim. See `docs/adr/0005`.
 _Avoid_: Feed, activity stream, integration
 
@@ -30,7 +30,7 @@ _Avoid_: Feed, activity stream, integration
 The part of the Corpus that answers intent and logistics rather than history: when he can start,
 whether he would relocate, what he wants next. It exists because no amount of project write-up implies
 those, and the Spokesperson Rule forbids the bot from inferring them - so every one of them used to be
-a Handoff. Lives in `src/content/hiring.ts`, renders on the page, and reaches the Corpus by the same
+a Handoff. Lives in `src/content/hiring.json`, renders on the page, and reaches the Corpus by the same
 projection as everything else.
 _Avoid_: Canned answers, scripted replies, prepared responses
 

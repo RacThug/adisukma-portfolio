@@ -44,16 +44,17 @@ Spokesperson Rule is to ask it.
 
 ## Changing what the bot knows
 
-Edit `src/content/*.ts`. That is also the entire procedure, and it is the point: the page and the
+Edit `src/content/*.json`. That is also the entire procedure, and it is the point: the page and the
 bot are the same commit. There is no second place to keep in sync, because the last time there was
-one it rotted for months and had to be deleted.
+one it rotted for months and had to be deleted. The sibling `.ts` module validates the JSON against
+a Zod schema at build time, so a malformed or missing fact fails the build instead of shipping.
 
 If you want the bot to be able to say something, put it on the site. If it isn't worth showing a
 visitor, it isn't worth telling a recruiter.
 
 **The one exception, and its fence.** `chat/activity.ts` appends GitHub push dates to the prompt at
 request time, so the bot can say the code is alive without anyone typing a date that would then rot.
-The *selection* is still curated: `src/content/github.ts` is an allowlist, and a repo the bot can
+The *selection* is still curated: `src/content/github.json` is an allowlist, and a repo the bot can
 mention is a repo Adi put there. Only the dates are live. This matters because the account also holds
 a meme picker, a blackjack game and a password generator, all "just basic X with javascript" - sorting
 by push date and taking the top few would put those in front of a recruiter next to four written-up
@@ -63,7 +64,7 @@ Note also what is *not* fetched: the GitHub profile bio, which still says "AI-fi
 from the site in 3c77ca4 and guarded against by name in `corpus.test.ts` and the evals. Pulling the bio
 would reintroduce that drift through an automatic door nobody reviews.
 
-**Recruiters ask about the FAQ, so keep it current.** `src/content/hiring.ts` answers start date,
+**Recruiters ask about the FAQ, so keep it current.** `src/content/hiring.json` answers start date,
 relocation, timezone overlap, and what he wants next. Those were Handoffs until they were written down,
 and they will silently become wrong ones if he takes a job and nobody edits the file.
 
