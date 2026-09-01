@@ -1,9 +1,20 @@
 {
-  "topSkills": ["Next.js", "NestJS", "TypeScript"],
+  "topSkills": [
+    "Next.js",
+    "NestJS",
+    "TypeScript"
+  ],
   "skillGroups": [
     {
       "label": "Languages",
-      "items": ["TypeScript", "JavaScript", "PHP", "SQL", "HTML", "CSS"]
+      "items": [
+        "TypeScript",
+        "JavaScript",
+        "PHP",
+        "SQL",
+        "HTML",
+        "CSS"
+      ]
     },
     {
       "label": "Frontend",
@@ -33,7 +44,11 @@
     },
     {
       "label": "Databases",
-      "items": ["MySQL", "MariaDB", "PostgreSQL"]
+      "items": [
+        "MySQL",
+        "MariaDB",
+        "PostgreSQL"
+      ]
     },
     {
       "label": "DevOps & Tooling",

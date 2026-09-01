@@ -28,4 +28,6 @@ export type HiringAnswer = z.infer<typeof hiringAnswerSchema>;
  * fact another module already owns: if a date lives in `experience.json`, refer
  * to it, do not copy it. A copied fact is a fact that rots.
  */
-export const hiringFaq: HiringAnswer[] = z.array(hiringAnswerSchema).min(1).parse(data);
+export const hiringFaqSchema = z.array(hiringAnswerSchema).min(1);
+
+export const hiringFaq: HiringAnswer[] = hiringFaqSchema.parse(data);

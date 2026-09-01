@@ -8,7 +8,7 @@ export const skillGroupSchema = z.strictObject({
 
 export type SkillGroup = z.infer<typeof skillGroupSchema>;
 
-const skillsFileSchema = z.strictObject({
+export const skillsFileSchema = z.strictObject({
   topSkills: z.array(z.string().min(1)).min(1),
   skillGroups: z.array(skillGroupSchema).min(1),
   waysOfWorking: z.array(z.string().min(1)).min(1),

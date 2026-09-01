@@ -30,7 +30,13 @@
       "pnpm",
       "Turborepo"
     ],
-    "featuredTech": ["TypeScript", "Next.js 15", "NestJS 10", "Drizzle ORM", "Puppeteer"]
+    "featuredTech": [
+      "TypeScript",
+      "Next.js 15",
+      "NestJS 10",
+      "Drizzle ORM",
+      "Puppeteer"
+    ]
   },
   {
     "slug": "specialty-paper-ecommerce",
@@ -62,7 +68,13 @@
       "PHPStan",
       "Codeception"
     ],
-    "featuredTech": ["PHP 8.3", "Symfony 6.4", "EC-CUBE 4.3", "Doctrine ORM", "MySQL 8"]
+    "featuredTech": [
+      "PHP 8.3",
+      "Symfony 6.4",
+      "EC-CUBE 4.3",
+      "Doctrine ORM",
+      "MySQL 8"
+    ]
   },
   {
     "slug": "dewasa-ayu-balinese-calendar",
@@ -95,7 +107,13 @@
       "Playwright",
       "Vercel"
     ],
-    "featuredTech": ["TypeScript", "Next.js 16", "NestJS", "Turborepo", "Playwright"],
+    "featuredTech": [
+      "TypeScript",
+      "Next.js 16",
+      "NestJS",
+      "Turborepo",
+      "Playwright"
+    ],
     "liveUrl": "https://dewasa-ayu-web.vercel.app",
     "repoUrl": "https://github.com/RacThug/dewasa-ayu"
   },
@@ -127,7 +145,13 @@
       "JSON-LD",
       "Vercel"
     ],
-    "featuredTech": ["TypeScript", "Next.js 16", "Tailwind CSS v4", "GSAP", "Vercel"],
+    "featuredTech": [
+      "TypeScript",
+      "Next.js 16",
+      "Tailwind CSS v4",
+      "GSAP",
+      "Vercel"
+    ],
     "liveUrl": "https://mebophotobooth.biz.id"
   }
 ]

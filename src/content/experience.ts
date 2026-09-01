@@ -18,7 +18,7 @@ export const educationSchema = z.strictObject({
   degree: z.string().min(1),
 });
 
-const experienceFileSchema = z.strictObject({
+export const experienceFileSchema = z.strictObject({
   experience: z.array(experienceEntrySchema).min(1),
   education: educationSchema,
 });

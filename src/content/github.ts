@@ -1,7 +1,7 @@
 import { z } from "zod";
 import data from "./github.json";
 
-const githubFileSchema = z.strictObject({
+export const githubFileSchema = z.strictObject({
   githubOwner: z.string().min(1),
   featuredRepos: z.array(z.string().min(1)).readonly(),
 });
