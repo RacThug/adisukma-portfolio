@@ -1,11 +1,23 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { useFieldError } from "./field-errors";
 
 const labelClass = "font-mono text-xs uppercase tracking-wider text-muted";
 const inputClass =
-  "w-full rounded border border-line bg-surface px-3 py-2 text-sm text-ink outline-none focus:border-accent";
+  "w-full rounded border border-line bg-surface px-3 py-2 text-sm text-ink outline-none focus:border-accent aria-invalid:border-accent";
 
 function Hint({ children }: { children: ReactNode }) {
   return <span className="text-xs text-muted">{children}</span>;
+}
+
+function FieldError({ id, message }: { id: string; message: string | undefined }) {
+  if (message === undefined) return null;
+  return (
+    <span id={id} className="text-xs font-bold text-accent">
+      {message}
+    </span>
+  );
 }
 
 export function TextField({
@@ -21,10 +33,20 @@ export function TextField({
   hint?: string;
   required?: boolean;
 }) {
+  const error = useFieldError(name);
+  const errorId = `${name}-error`;
   return (
     <label className="flex flex-col gap-1.5">
       <span className={labelClass}>{label}</span>
-      <input name={name} defaultValue={defaultValue} required={required} className={inputClass} />
+      <input
+        name={name}
+        defaultValue={defaultValue}
+        required={required}
+        aria-invalid={error !== undefined || undefined}
+        aria-describedby={error === undefined ? undefined : errorId}
+        className={inputClass}
+      />
+      <FieldError id={errorId} message={error} />
       {hint && <Hint>{hint}</Hint>}
     </label>
   );
@@ -45,6 +67,8 @@ export function TextAreaField({
   rows?: number;
   required?: boolean;
 }) {
+  const error = useFieldError(name);
+  const errorId = `${name}-error`;
   return (
     <label className="flex flex-col gap-1.5">
       <span className={labelClass}>{label}</span>
@@ -53,8 +77,11 @@ export function TextAreaField({
         defaultValue={defaultValue}
         rows={rows}
         required={required}
+        aria-invalid={error !== undefined || undefined}
+        aria-describedby={error === undefined ? undefined : errorId}
         className={inputClass}
       />
+      <FieldError id={errorId} message={error} />
       {hint && <Hint>{hint}</Hint>}
     </label>
   );

@@ -1,7 +1,6 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import type { z } from "zod";
 import { experienceFileSchema } from "@/content/experience";
 import { githubFileSchema } from "@/content/github";
 import { hiringFaqSchema } from "@/content/hiring";
@@ -9,6 +8,8 @@ import { projects, projectSchema, projectsSchema } from "@/content/projects";
 import { siteSchema } from "@/content/site";
 import { skillsFileSchema } from "@/content/skills";
 import { assertAdminEnabled } from "./enabled";
+import { invalid, stripPrefix } from "./errors";
+import type { SaveState } from "./errors";
 import {
   decodeExperienceFile,
   decodeGithubFile,
@@ -19,20 +20,6 @@ import {
   text,
 } from "./forms";
 import { writeContentJson } from "./write";
-
-export type SaveState =
-  | { status: "idle" }
-  | { status: "saved" }
-  | { status: "error"; message: string };
-
-function invalid(error: z.ZodError): SaveState {
-  return {
-    status: "error",
-    message: error.issues
-      .map((issue) => `${issue.path.join(".") || "form"}: ${issue.message}`)
-      .join(" · "),
-  };
-}
 
 export async function saveSite(_prev: SaveState, formData: FormData): Promise<SaveState> {
   assertAdminEnabled();
@@ -45,7 +32,7 @@ export async function saveSite(_prev: SaveState, formData: FormData): Promise<Sa
 export async function saveExperience(_prev: SaveState, formData: FormData): Promise<SaveState> {
   assertAdminEnabled();
   const parsed = experienceFileSchema.safeParse(decodeExperienceFile(formData));
-  if (!parsed.success) return invalid(parsed.error);
+  if (!parsed.success) return invalid(parsed.error, stripPrefix("experience"));
   await writeContentJson("experience.json", parsed.data);
   return { status: "saved" };
 }
@@ -53,7 +40,7 @@ export async function saveExperience(_prev: SaveState, formData: FormData): Prom
 export async function saveSkills(_prev: SaveState, formData: FormData): Promise<SaveState> {
   assertAdminEnabled();
   const parsed = skillsFileSchema.safeParse(decodeSkillsFile(formData));
-  if (!parsed.success) return invalid(parsed.error);
+  if (!parsed.success) return invalid(parsed.error, stripPrefix("skillGroups"));
   await writeContentJson("skills.json", parsed.data);
   return { status: "saved" };
 }
@@ -76,14 +63,20 @@ export async function saveGithub(_prev: SaveState, formData: FormData): Promise<
 
 /** `/admin/projects/new` is the creation route, so no project may claim it. */
 function slugIsReserved(slug: string): SaveState | null {
-  return slug === "new" ? { status: "error", message: 'slug: "new" is reserved' } : null;
+  return slug === "new"
+    ? {
+        status: "error",
+        message: "Not saved: 1 field needs attention.",
+        fields: { slug: '"new" is reserved for the creation route' },
+      }
+    : null;
 }
 
 export async function saveProject(_prev: SaveState, formData: FormData): Promise<SaveState> {
   assertAdminEnabled();
   const originalSlug = text(formData, "originalSlug");
   if (!projects.some((p) => p.slug === originalSlug)) {
-    return { status: "error", message: `No project with slug "${originalSlug}"` };
+    return { status: "error", message: `No project with slug "${originalSlug}"`, fields: {} };
   }
   const parsed = projectSchema.safeParse(decodeProject(formData));
   if (!parsed.success) return invalid(parsed.error);
