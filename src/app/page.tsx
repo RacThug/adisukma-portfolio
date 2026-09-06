@@ -36,10 +36,10 @@ export default function Home() {
       <Nav />
       <main className="flex-1">
         <Hero />
-        <About />
-        <Skills />
         <Projects />
+        <About />
         <Experience />
+        <Skills />
         <Hiring />
         <Contact />
       </main>

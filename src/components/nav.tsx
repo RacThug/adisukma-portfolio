@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { MobileNav } from "@/components/mobile-nav";
 
 const links = [
-  { href: "/#about", label: "about" },
   { href: "/#projects", label: "projects" },
+  { href: "/#about", label: "about" },
   { href: "/#experience", label: "experience" },
   { href: "/#hiring", label: "hiring" },
   { href: "/#contact", label: "contact" },
@@ -16,7 +17,7 @@ export function Nav() {
         <Link href="/" className="font-mono text-sm font-bold text-ink hover:text-accent transition-colors">
           adi@sukma:~
         </Link>
-        <nav className="flex items-center gap-5 sm:gap-7">
+        <nav aria-label="Main navigation" className="flex items-center gap-3 sm:gap-7">
           <ul className="hidden sm:flex items-center gap-6 font-mono text-xs text-muted">
             {links.map((l) => (
               <li key={l.href}>
@@ -27,6 +28,7 @@ export function Nav() {
             ))}
           </ul>
           <ThemeToggle />
+          <MobileNav links={links} />
         </nav>
       </div>
     </header>

@@ -1,3 +1,5 @@
+import { site, workPreferences } from "./site";
+
 export interface HiringAnswer {
   /** The question in a hiring partner's own words, not ours. */
   question: string;
@@ -32,7 +34,7 @@ export const hiringFaq: HiringAnswer[] = [
   {
     question: "Where is he based, and would he relocate?",
     answer:
-      "Denpasar, Bali, on UTC+8. He takes on-site and hybrid work around Bali and remote work anywhere, and he is not looking to relocate, so a role based elsewhere would need to be remote.",
+      `${site.location} (${workPreferences.timezone}). ${workPreferences.remote}; ${workPreferences.local.toLowerCase()}. ${workPreferences.relocation}`,
   },
   {
     question: "How well does his day overlap with other timezones?",

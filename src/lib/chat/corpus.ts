@@ -70,6 +70,8 @@ function projectSection(): string {
       `### ${p.title}`,
       `- Type: ${p.type}`,
       `- His role: ${p.role}`,
+      `- His contribution: ${p.contribution}`,
+      `- Product flow: ${p.workflow.map((step) => `${step.title}: ${step.description}`).join("; ")}`,
       `- Summary: ${p.summary}`,
       `- The problem: ${p.problem}`,
       `- What he built: ${p.built}`,

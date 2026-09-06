@@ -1,3 +1,13 @@
+export const workPreferences = {
+  status: "Open to work",
+  remote: "Remote anywhere",
+  local: "On-site / hybrid in Bali",
+  timezone: "UTC+8",
+  relocation: "He is not looking to relocate, so a role based elsewhere would need to be remote.",
+} as const;
+
+const availability = `${workPreferences.status}: ${workPreferences.remote} · ${workPreferences.local}`;
+
 export const site = {
   name: "Adi Sukma",
   role: "Fullstack Web Developer",
@@ -6,7 +16,7 @@ export const site = {
   linkedin: "https://www.linkedin.com/in/adi-sukma",
   github: "https://github.com/RacThug",
   url: "https://adisukma.dev",
-  availability: "Open to work: remote · hybrid · on-site",
+  availability,
   tagline: {
     pre: "Building ",
     highlight: "real-world production",
@@ -19,7 +29,7 @@ export const site = {
   longBio: [
     "I'm a fullstack web developer who enjoys turning messy, manual processes into clean, reliable software. Over the past year I've contributed to several production systems, from a compliance platform that automates regulatory document generation to a customized e-commerce store.",
     "My core stack is TypeScript with Next.js / React on the frontend and NestJS / Node.js on the backend, and I'm comfortable in PHP / Symfony environments too. I care about shipping features end to end: understanding the spec, building the frontend and backend, writing tests, and getting it to production.",
-    "I graduated in Information Systems from Institut Teknologi dan Bisnis STIKOM Bali, and I'm open to frontend, backend, and fullstack roles, on-site, hybrid, or remote.",
+    "I graduated in Information Systems from Institut Teknologi dan Bisnis STIKOM Bali, and I'm open to frontend, backend, and fullstack roles.",
   ],
   cvPath: "/cv/adi-sukma-cv.pdf",
   cvDownloadName: "CV_I_Made_Adi_Sukma_Meta_2026.pdf",
