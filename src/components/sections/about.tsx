@@ -1,12 +1,13 @@
 import Image from "next/image";
-import { site } from "@/content/site";
+import { site, workPreferences } from "@/content/site";
 import { SectionHeading } from "@/components/section-heading";
 import profilePhoto from "@/assets/profile-photo.png";
 
 const facts: [string, string][] = [
-  ["status", "open to work"],
+  ["status", workPreferences.status],
   ["roles", "frontend · backend · fullstack"],
-  ["location", "Denpasar, Bali (UTC+8)"],
+  ["location", `${site.location} (${workPreferences.timezone})`],
+  ["work setup", `${workPreferences.remote} · ${workPreferences.local}`],
   ["stack", "Next.js · NestJS · TypeScript"],
   ["workflow", "spec-first · tested end to end"],
 ];

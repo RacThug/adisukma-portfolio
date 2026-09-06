@@ -21,6 +21,11 @@ describe("buildCorpus", () => {
       expect(corpus).toContain(project.title);
       expect(corpus).toContain(project.problem);
       expect(corpus).toContain(project.built);
+      expect(corpus).toContain(project.contribution);
+      for (const step of project.workflow) {
+        expect(corpus).toContain(step.title);
+        expect(corpus).toContain(step.description);
+      }
       for (const highlight of project.highlights) {
         expect(corpus).toContain(highlight);
       }

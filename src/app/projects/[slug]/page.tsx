@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Chip } from "@/components/chip";
 import { Footer } from "@/components/footer";
 import { Nav } from "@/components/nav";
+import { ProjectWorkflow } from "@/components/project-workflow";
 import { getProject, projects } from "@/content/projects";
 
 type Params = { params: Promise<{ slug: string }> };
@@ -99,6 +100,14 @@ export default async function ProjectPage({ params }: Params) {
             </p>
           ) : null}
         </header>
+
+        <p className="mt-6 text-lg leading-relaxed text-ink/90">{project.summary}</p>
+
+        <ProjectWorkflow project={project} />
+
+        <CaseSection label="my contribution">
+          <p className="leading-relaxed text-ink/90">{project.contribution}</p>
+        </CaseSection>
 
         <CaseSection label="problem">
           <p className="leading-relaxed text-ink/90">{project.problem}</p>

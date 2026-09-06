@@ -1,15 +1,15 @@
 import Link from "next/link";
-import { site } from "@/content/site";
+import { site, workPreferences } from "@/content/site";
 
 export function Hero() {
   return (
-    <section className="mx-auto max-w-5xl px-6 pt-24 pb-28 md:pt-36">
+    <section className="mx-auto max-w-5xl px-6 pt-20 pb-12 md:pt-28 md:pb-16">
       <p className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-line px-4 py-1.5 font-mono text-[11px] tracking-[0.06em] text-accent">
         <span className="relative flex size-1.5">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:hidden" />
           <span className="relative inline-flex size-1.5 rounded-full bg-accent" />
         </span>
-        OPEN_TO_WORK: remote · hybrid · on-site
+        {workPreferences.status}
       </p>
 
       <h1 className="font-mono text-4xl font-bold tracking-tight text-ink md:text-6xl">
@@ -26,6 +26,10 @@ export function Hero() {
         {site.tagline.pre}
         <span className="text-accent">{site.tagline.highlight}</span>
         {site.tagline.post}
+      </p>
+
+      <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">
+        {workPreferences.remote} · {workPreferences.local}
       </p>
 
       <div className="mt-10 flex flex-wrap items-center gap-4">

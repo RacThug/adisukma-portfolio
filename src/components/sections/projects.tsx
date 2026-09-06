@@ -15,43 +15,33 @@ export async function Projects() {
   return (
     <section id="projects" className="mx-auto max-w-5xl scroll-mt-24 px-6 py-20">
       <SectionHeading path="projects" note="selected work" />
-      <div className="space-y-6">
+      <div className="grid gap-6 md:grid-cols-2">
         {projects.map((project) => (
           <article
             key={project.slug}
-            className="group relative rounded-md border border-line bg-surface/70 p-7 transition-colors hover:border-muted md:p-9"
+            className="group flex min-w-0 flex-col rounded-md border border-line bg-surface/70 p-6 transition-colors hover:border-muted md:p-7"
           >
-            <span className="absolute right-7 top-7 font-mono text-xs text-muted">
-              {project.index}
-            </span>
-            <p className="font-mono text-[11px] tracking-[0.08em] text-accent">{project.type}</p>
-            <h3 className="mt-2 font-mono text-xl font-bold text-ink md:text-2xl">
+            <p className="font-mono text-[11px] tracking-[0.08em] text-accent">
+              <span className="mr-2 text-muted">{project.index}</span>{project.type}
+            </p>
+            <h3 className="mt-3 font-mono text-xl font-bold text-ink">
               <Link href={`/projects/${project.slug}`} className="hover:text-accent transition-colors">
                 {project.title}
               </Link>
             </h3>
             <p className="mt-3 max-w-2xl leading-relaxed text-muted">{project.summary}</p>
-            <ul className="mt-5 space-y-1.5 text-sm text-ink/85">
-              {project.highlights.slice(0, 3).map((highlight) => (
-                <li key={highlight} className="flex gap-2.5">
-                  <span aria-hidden className="font-mono text-accent">
-                    »
-                  </span>
-                  {highlight}
-                </li>
-              ))}
-            </ul>
+            <p className="mt-4 text-sm text-ink/85">{project.role}</p>
             <div className="mt-6 flex flex-wrap gap-1.5">
               {project.featuredTech.map((tech) => (
                 <Chip key={tech}>{tech}</Chip>
               ))}
             </div>
-            <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs font-semibold">
+            <div className="mt-auto flex flex-wrap items-center gap-x-4 gap-y-2 pt-6 font-mono text-xs font-semibold">
               <Link
                 href={`/projects/${project.slug}`}
                 className="text-accent hover:underline underline-offset-4"
               >
-                cat case-study.md →
+                Read case study →
               </Link>
               {project.liveUrl ? (
                 <a
