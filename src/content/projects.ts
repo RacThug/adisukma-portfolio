@@ -5,6 +5,8 @@ export interface Project {
   type: string;
   role: string;
   summary: string;
+  /** Search snippet. The page body still renders `summary`. Keep this at or under 155 characters. */
+  seoDescription: string;
   problem: string;
   built: string;
   highlights: string[];
@@ -26,6 +28,8 @@ export const projects: Project[] = [
     role: "Fullstack Developer",
     summary:
       "Monorepo platform that digitizes inspection-survey workflows and auto-generates 8 types of regulatory PDF documents, with role-based access control, SaaS synchronization, and automated backup pipelines.",
+    seoDescription:
+      "Construction compliance platform on Next.js and NestJS that auto-generates 8 regulatory PDFs, with role-based access, SaaS sync, and backups.",
     problem:
       "A construction/demolition business needed to meet strict regulatory requirements that traditionally rely on manual paperwork: inspection surveys, work plans, reports, and site signage all filled in by hand.",
     built:
@@ -62,6 +66,8 @@ export const projects: Project[] = [
     role: "Web Developer",
     summary:
       "Deeply customized EC-CUBE store with a paper-industry product model, mini-sample ordering, a B2B quotation module, headless-CMS content, and multiple payment gateways.",
+    seoDescription:
+      "Specialty-paper e-commerce on EC-CUBE and Symfony: mini-sample ordering, a B2B quotation module, headless-CMS content, and card plus invoice payments.",
     problem:
       "A specialty-paper retailer needed to sell thousands of products online with industry-specific attributes (brand, color, texture, basis weight, eco-friendliness) that a generic store can't express, plus B2B buying behavior like sample orders and quotations.",
     built:
@@ -97,6 +103,8 @@ export const projects: Project[] = [
     role: "Solo Developer",
     summary:
       "Monorepo platform that converts any Gregorian date into the full Balinese Wariga calendar and scores it for six categories of Hindu ceremony, with a color-coded month view and the five nearest good dates for whichever ceremony is selected.",
+    seoDescription:
+      "Dewasa Ayu turns a Gregorian date into the Balinese Wariga calendar and scores it for six Hindu ceremonies, with the five nearest good dates.",
     problem:
       "Picking a good day (dewasa ayu) for a Balinese Hindu ceremony means reading the Wariga calendar: Pawukon, ten concurrent Wewaran cycles, Sasih, and Penanggal/Pangelong. Printed calendars show the raw components but not what they mean for a particular ceremony, so the first-pass shortlist is either guesswork or a trip to a Sulinggih for something a calculation can narrow down.",
     built:
@@ -135,6 +143,8 @@ export const projects: Project[] = [
     role: "Solo Developer",
     summary:
       "Fully prerendered marketing site for a Bali photobooth-rental business, with Indonesian and English served as two separate indexable URL trees and every call to action pointed at one conversion: a WhatsApp booking chat.",
+    seoDescription:
+      "Bilingual Next.js marketing site for a Bali photobooth rental, with separate Indonesian and English URLs and every call to action opening WhatsApp.",
     problem:
       "The business sells through Instagram and WhatsApp, so nothing it publishes is reachable from a search for \"sewa photobooth Bali\". It also sells into two markets at once: local Indonesian customers, and the destination-wedding traffic that searches in English. One page in one language would miss half the demand, and two languages behind a toggle would leave one of them unindexable.",
     built:

@@ -9,18 +9,26 @@ export function Hero() {
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:hidden" />
           <span className="relative inline-flex size-1.5 rounded-full bg-accent" />
         </span>
-        OPEN_TO_WORK: remote · hybrid · on-site
+        {site.availabilityBadge}
       </p>
 
-      <h1 className="font-mono text-4xl font-bold tracking-tight text-ink md:text-6xl">
-        <span className="text-accent">$ </span>
-        {site.name}
+      {/*
+        `$` and `//` are prompt glyphs. They stay visible, and `aria-hidden`,
+        so the heading is his name, the role, and the place.
+      */}
+      <h1 className="font-mono text-ink">
+        <span className="block text-4xl font-bold tracking-tight md:text-6xl">
+          <span aria-hidden className="text-accent">
+            ${" "}
+          </span>
+          {site.name}
+        </span>
+        <span className="mt-3 block text-sm font-normal text-muted md:text-base">
+          <span className="sr-only">, </span>
+          <span aria-hidden>{"// "}</span>
+          {site.role} · {site.location}
+        </span>
       </h1>
-
-      <p className="mt-3 font-mono text-sm text-muted md:text-base">
-        <span aria-hidden>{"// "}</span>
-        {site.role} · {site.location}
-      </p>
 
       <p className="mt-7 max-w-xl text-lg leading-relaxed text-ink md:text-xl">
         {site.tagline.pre}
@@ -40,6 +48,12 @@ export function Hero() {
           className="rounded-sm border border-line px-5 py-2.5 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
         >
           Get in touch
+        </Link>
+        <Link
+          href="/services"
+          className="font-mono text-xs text-muted underline underline-offset-4 transition-colors hover:text-accent"
+        >
+          freelance services
         </Link>
         <a
           href={site.cvPath}

@@ -1,5 +1,5 @@
 import { education, experience } from "@/content/experience";
-import { hiringFaq } from "@/content/hiring";
+import { clientFaq } from "@/content/hiring";
 import { projects } from "@/content/projects";
 import { site } from "@/content/site";
 import { skillGroups, topSkills, waysOfWorking } from "@/content/skills";
@@ -23,7 +23,7 @@ export function buildCorpus(): string {
     projectSection(),
     experienceSection(),
     educationSection(),
-    hiringSection(),
+    faqSection(),
   ].join("\n\n");
 }
 
@@ -32,8 +32,10 @@ function identity(): string {
     "## Who he is",
     "",
     `- Name: ${site.name}`,
+    `- Full name: ${site.fullName}`,
     `- Role: ${site.role}`,
     `- Location: ${site.location}`,
+    `- Languages: ${site.languages.join(", ")}`,
     `- Availability: ${site.availability}`,
     `- Email: ${site.email}`,
     `- GitHub: ${site.github}`,
@@ -111,14 +113,11 @@ function educationSection(): string {
 }
 
 /**
- * The section that exists to *stop* Handoffs.
- *
- * Everything above describes work already done. This describes intent and
- * logistics, which the bot is forbidden from inferring - and which happen to be
- * the first five things a recruiter asks. Each entry is a question the bot used
- * to hand off, answered in Adi's own words on his own site.
+ * Intent and logistics the bot is forbidden from inferring: what freelance
+ * work he takes, where, and how a project starts. Rates and a start date are
+ * deliberately not here.
  */
-function hiringSection(): string {
-  const entries = hiringFaq.map((entry) => `- ${entry.question}\n  ${entry.answer}`);
+function faqSection(): string {
+  const entries = clientFaq.map((entry) => `- ${entry.question}\n  ${entry.answer}`);
   return ["## Working with him", "", ...entries].join("\n");
 }

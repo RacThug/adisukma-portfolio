@@ -1,17 +1,18 @@
 # Portfolio
 
-A personal portfolio site for Adi Sukma. It exists to convince a hiring partner, quickly, that Adi is worth
-talking to. Every feature is judged against that: does it shorten the path from "who is this person" to
-"let's talk".
+A personal portfolio site for Adi Sukma. It exists to help a prospective client decide, quickly, that Adi
+is the right person to build a website or web app. He takes freelance projects, remote or around Bali.
+The site is not a job application, and it does not name an employer. Every feature is judged against
+that: does it shorten the path from "who is this person" to "let's talk about a project".
 
 ## Language
 
 ### Chatbot
 
 **Visitor**:
-Anyone talking to the chatbot. Assume a recruiter or hiring partner who is short on time and will not read
-the whole site.
-_Avoid_: User, customer, lead
+Anyone talking to the chatbot. Assume a prospective client who is short on time and will not read the
+whole site.
+_Avoid_: User, customer, lead, recruiter
 
 **Corpus**:
 The complete set of facts the chatbot is allowed to state, derived from `src/content/*.ts`. If it is not in
@@ -26,13 +27,14 @@ Adi in `src/content/github.ts` - only the dates are live. They are kept outside 
 folded into it so that "the Corpus is exactly the site" stays a testable claim. See `docs/adr/0005`.
 _Avoid_: Feed, activity stream, integration
 
-**Hiring FAQ**:
-The part of the Corpus that answers intent and logistics rather than history: when he can start,
-whether he would relocate, what he wants next. It exists because no amount of project write-up implies
-those, and the Spokesperson Rule forbids the bot from inferring them - so every one of them used to be
-a Handoff. Lives in `src/content/hiring.ts`, renders on the page, and reaches the Corpus by the same
-projection as everything else.
-_Avoid_: Canned answers, scripted replies, prepared responses
+**Client FAQ**:
+The part of the Corpus that answers how freelance work happens rather than history: what he takes on,
+where he works, how timezones overlap, and how to start. It exists because no amount of project
+write-up implies those, and the Spokesperson Rule forbids the bot from inferring them. Rates, a start
+date, and any current employer are absent on purpose and stay a Handoff. Lives in
+`src/content/hiring.ts`, renders on the page, and reaches the Corpus by the same projection as
+everything else.
+_Avoid_: Hiring FAQ, canned answers, scripted replies
 
 **Spokesperson Rule**:
 The chatbot is a spokesperson, not a stand-in. It answers only from the Corpus. Where the Corpus is silent it

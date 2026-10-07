@@ -7,12 +7,12 @@ export function Contact() {
     <section id="contact" className="mx-auto max-w-5xl scroll-mt-24 px-6 py-20 pb-28">
       <SectionHeading path="contact" note="say hello" />
       <h2 className="max-w-2xl font-mono text-3xl font-bold tracking-tight text-ink md:text-4xl">
-        Have a role or a project in mind?
+        Have a project in mind?
         <span className="text-accent"> Let’s talk.</span>
       </h2>
       <p className="mt-5 max-w-xl leading-relaxed text-muted">
-        Open to frontend, backend, and fullstack roles, on-site, hybrid, or remote. The fastest
-        way to reach me is email or LinkedIn.
+        I take freelance projects remotely, and on-site around Denpasar and Bali. The fastest way
+        to reach me is email or LinkedIn.
       </p>
       <div className="mt-9 flex flex-wrap items-center gap-4">
         <a

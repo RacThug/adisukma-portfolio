@@ -1,38 +1,21 @@
 import { Footer } from "@/components/footer";
+import { JsonLd } from "@/components/json-ld";
 import { Nav } from "@/components/nav";
 import { site } from "@/content/site";
 import { About } from "@/components/sections/about";
 import { Contact } from "@/components/sections/contact";
 import { Experience } from "@/components/sections/experience";
 import { Hero } from "@/components/sections/hero";
-import { Hiring } from "@/components/sections/hiring";
+import { Faq } from "@/components/sections/hiring";
 import { Projects } from "@/components/sections/projects";
 import { Skills } from "@/components/sections/skills";
-
-const personJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: site.name,
-  jobTitle: site.role,
-  email: `mailto:${site.email}`,
-  url: site.url,
-  sameAs: [site.linkedin, site.github],
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Denpasar",
-    addressRegion: "Bali",
-    addressCountry: "ID",
-  },
-  knowsAbout: ["Next.js", "NestJS", "TypeScript", "React", "Node.js", "PHP", "Symfony"],
-};
+import { homeJsonLd } from "@/lib/structured-data";
+import profilePhoto from "@/assets/profile-photo.png";
 
 export default function Home() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-      />
+      <JsonLd data={homeJsonLd(`${site.url}${profilePhoto.src}`)} />
       <Nav />
       <main className="flex-1">
         <Hero />
@@ -40,7 +23,7 @@ export default function Home() {
         <Skills />
         <Projects />
         <Experience />
-        <Hiring />
+        <Faq />
         <Contact />
       </main>
       <Footer />

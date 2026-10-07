@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { site } from "@/content/site";
 import { PRIVACY_NOTE } from "@/lib/chat/copy";
 
@@ -6,7 +7,10 @@ export function Footer() {
     <footer className="border-t border-line">
       <div className="mx-auto flex max-w-5xl flex-col gap-2 px-6 py-8 font-mono text-xs text-muted sm:flex-row sm:items-center sm:justify-between">
         <p>
-          © {new Date().getFullYear()} {site.name} · {site.location}
+          © {new Date().getFullYear()} {site.name} · {site.location} ·{" "}
+          <Link href="/services" className="transition-colors hover:text-accent">
+            services
+          </Link>
         </p>
         <p>built with Next.js 16 + Tailwind CSS 4</p>
       </div>

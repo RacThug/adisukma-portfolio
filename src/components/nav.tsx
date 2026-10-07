@@ -4,8 +4,9 @@ import { ThemeToggle } from "@/components/theme-toggle";
 const links = [
   { href: "/#about", label: "about" },
   { href: "/#projects", label: "projects" },
+  { href: "/services", label: "services" },
   { href: "/#experience", label: "experience" },
-  { href: "/#hiring", label: "hiring" },
+  { href: "/#faq", label: "faq" },
   { href: "/#contact", label: "contact" },
 ];
 
@@ -19,7 +20,7 @@ export function Nav() {
         <nav className="flex items-center gap-5 sm:gap-7">
           <ul className="hidden sm:flex items-center gap-6 font-mono text-xs text-muted">
             {links.map((l) => (
-              <li key={l.href}>
+              <li key={l.href} className={l.href === "/services" ? "hidden md:block" : undefined}>
                 <Link href={l.href} className="hover:text-accent transition-colors">
                   {l.label}
                 </Link>

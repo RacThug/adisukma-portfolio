@@ -3,8 +3,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Chip } from "@/components/chip";
 import { Footer } from "@/components/footer";
+import { JsonLd } from "@/components/json-ld";
 import { Nav } from "@/components/nav";
 import { getProject, projects } from "@/content/projects";
+import { projectJsonLd } from "@/lib/structured-data";
 
 type Params = { params: Promise<{ slug: string }> };
 
@@ -20,20 +22,20 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   if (!project) notFound();
   return {
     title: project.title,
-    description: project.summary,
+    description: project.seoDescription,
     alternates: {
       canonical: `/projects/${slug}`,
     },
     openGraph: {
       title: project.title,
-      description: project.summary,
+      description: project.seoDescription,
       url: `/projects/${slug}`,
       type: "article",
     },
     twitter: {
       card: "summary_large_image",
       title: project.title,
-      description: project.summary,
+      description: project.seoDescription,
     },
   };
 }
@@ -56,6 +58,7 @@ export default async function ProjectPage({ params }: Params) {
 
   return (
     <>
+      <JsonLd data={projectJsonLd(project)} />
       <Nav />
       <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16">
         <Link
@@ -131,7 +134,11 @@ export default async function ProjectPage({ params }: Params) {
 
         <div className="mt-16 rounded-md border border-line bg-surface/70 p-6">
           <p className="font-mono text-xs text-muted">
-            Interested in the details?{" "}
+            Interested in something similar?{" "}
+            <Link href="/services" className="text-accent hover:underline underline-offset-4">
+              Freelance services
+            </Link>
+            {" · "}
             <Link href="/#contact" className="text-accent hover:underline underline-offset-4">
               Get in touch →
             </Link>
