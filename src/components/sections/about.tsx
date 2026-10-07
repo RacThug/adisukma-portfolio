@@ -4,9 +4,9 @@ import { SectionHeading } from "@/components/section-heading";
 import profilePhoto from "@/assets/profile-photo.png";
 
 const facts: [string, string][] = [
-  ["status", "open to work"],
-  ["roles", "frontend · backend · fullstack"],
+  ["status", "taking freelance work"],
   ["location", "Denpasar, Bali (UTC+8)"],
+  ["languages", site.languages.join(" · ")],
   ["stack", "Next.js · NestJS · TypeScript"],
   ["workflow", "spec-first · tested end to end"],
 ];

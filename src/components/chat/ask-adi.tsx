@@ -9,6 +9,8 @@ import {
   DISCLOSURE,
   EMPTY_STATE,
   NUDGE,
+  NUDGE_DELAY_MS,
+  NUDGE_SEEN_KEY,
   SUGGESTIONS,
   UNREACHABLE,
 } from "@/lib/chat/copy";
@@ -16,16 +18,13 @@ import { MAX_QUESTION_CHARS, textOf } from "@/lib/chat/guards";
 
 import { BotGlyph } from "./bot-glyph";
 
-const NUDGE_SEEN_KEY = "adi:chat:nudge-seen";
-const NUDGE_DELAY_MS = 2500;
-
 /** The id of the wrapper around the rest of the page. Made `inert` while the panel is open. */
 const SITE_ROOT_ID = "site-root";
 
 const FOCUSABLE = 'button:not([disabled]), input:not([disabled]), [href], [tabindex]:not([tabindex="-1"])';
 
-export function AskAdi() {
-  const [open, setOpen] = useState(false);
+export function AskAdi({ initialOpen = false }: { initialOpen?: boolean }) {
+  const [open, setOpen] = useState(initialOpen);
   const [input, setInput] = useState("");
   const [showNudge, setShowNudge] = useState(false);
 
@@ -52,8 +51,10 @@ export function AskAdi() {
 
   // Once, ever. A prompt that reappears on every visit is a prompt people learn
   // to swat - and we would have taught them to ignore the one thing that makes a
-  // corner launcher discoverable at all.
+  // corner launcher discoverable at all. When the panel opens from the lazy
+  // launcher, that launcher has already recorded the nudge as seen.
   useEffect(() => {
+    if (initialOpen) return;
     let seen = true;
     try {
       seen = localStorage.getItem(NUDGE_SEEN_KEY) === "1";
@@ -64,7 +65,7 @@ export function AskAdi() {
 
     const timer = setTimeout(() => setShowNudge(true), NUDGE_DELAY_MS);
     return () => clearTimeout(timer);
-  }, []);
+  }, [initialOpen]);
 
   const close = useCallback(() => {
     setOpen(false);

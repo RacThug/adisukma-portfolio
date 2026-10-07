@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { experience, education } from "@/content/experience";
-import { hiringFaq } from "@/content/hiring";
+import { clientFaq } from "@/content/hiring";
 import { projects } from "@/content/projects";
 import { site } from "@/content/site";
 import { skillGroups } from "@/content/skills";
@@ -64,7 +64,7 @@ describe("buildCorpus", () => {
       expect(corpus).toContain(education.degree);
     });
 
-    it.each(hiringFaq)("carries the hiring answer to: $question", (entry) => {
+    it.each(clientFaq)("carries the client answer to: $question", (entry) => {
       // Verbatim, both halves. The question matters as much as the answer: it
       // is what lets the model recognise the visitor's phrasing as covered,
       // instead of reaching for a Handoff it no longer needs.
@@ -86,6 +86,14 @@ describe("buildCorpus", () => {
 
     it("does not carry the removed AI-first branding", () => {
       expect(corpus).not.toMatch(/ai-first/i);
+    });
+
+    it("does not claim he is job-hunting or free to start", () => {
+      expect(corpus).not.toMatch(/open to work/i);
+      expect(corpus).not.toMatch(/most recent role has ended/i);
+      expect(corpus).not.toMatch(/no notice period/i);
+      expect(corpus).not.toMatch(/open to frontend, backend, and fullstack roles/i);
+      expect(corpus).not.toMatch(/ini vie/i);
     });
 
     it("describes exactly the projects the site ships, and no others", () => {

@@ -25,13 +25,13 @@ export default async function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex", color: "#e8a020", fontSize: 28, marginBottom: 24 }}>
-          OPEN_TO_WORK: remote · hybrid · on-site
+          {site.availabilityBadge}
         </div>
         <div style={{ display: "flex", fontSize: 84, fontWeight: 700, color: "#d9e1ec" }}>
           <span style={{ color: "#e8a020" }}>$&nbsp;</span>
           {site.name}
         </div>
-        <div style={{ display: "flex", fontSize: 36, color: "#7e8a9c", marginTop: 16 }}>
+        <div style={{ display: "flex", fontSize: 30, color: "#7e8a9c", marginTop: 16, maxWidth: 1040 }}>
           {"// "}
           {site.role} · Denpasar, Bali
         </div>

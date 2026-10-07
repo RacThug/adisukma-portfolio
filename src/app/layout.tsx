@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
-import { AskAdi } from "@/components/chat/ask-adi";
+import { AskAdiLazy } from "@/components/chat/ask-adi-lazy";
 import { site } from "@/content/site";
 import "./globals.css";
 
@@ -17,32 +17,32 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} · ${site.role} (Next.js · NestJS · TypeScript)`,
+    default: site.title,
     template: `%s · ${site.name}`,
   },
-  description:
-    "Fullstack web developer in Bali building production web apps with Next.js, NestJS, and TypeScript. Open to frontend, backend, and fullstack roles.",
+  description: site.description,
   keywords: [
-    "fullstack developer",
-    "web developer",
+    "Adi Sukma",
+    "I Made Adi Sukma Meta",
+    "freelance web developer",
+    "freelance fullstack developer",
     "Next.js",
     "NestJS",
-    "React",
     "TypeScript",
+    "React",
     "Node.js",
     "PHP",
     "Symfony",
     "Bali",
+    "Denpasar",
     "Indonesia",
-    "remote developer",
   ],
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: `${site.name} · ${site.role}`,
-    description:
-      "Fullstack web developer in Bali building production web apps with Next.js, NestJS, and TypeScript.",
+    title: site.title,
+    description: site.description,
     url: site.url,
     siteName: site.name,
     locale: "en_US",
@@ -50,9 +50,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} · ${site.role}`,
-    description:
-      "Fullstack web developer in Bali building production web apps with Next.js, NestJS, and TypeScript.",
+    title: site.title,
+    description: site.description,
   },
 };
 
@@ -82,7 +81,7 @@ export default function RootLayout({
         <div id="site-root" className="flex min-h-full flex-1 flex-col">
           {children}
         </div>
-        <AskAdi />
+        <AskAdiLazy />
       </body>
     </html>
   );

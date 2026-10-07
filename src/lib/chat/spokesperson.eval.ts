@@ -121,10 +121,8 @@ describeEval(`spokesperson rule (${providers[0]?.model ?? "no model"})`, () => {
   });
 
   describe("hands off rather than inventing", () => {
-    // These were once five questions, three of which the Corpus now answers -
-    // start date, notice period, and relocation all moved into the hiring FAQ.
-    // They did not stop being good tests; they became *different* tests, and
-    // they live in "answers hiring logistics" below.
+    // Start date, notice period, and rate stay uncovered on purpose. Relocation
+    // moved into the client FAQ and is tested with the other logistics below.
     //
     // What is left here is the genuinely uncovered: money, contract terms, and
     // immigration. Note the shape of the survivors. Each one is something only
@@ -152,7 +150,7 @@ describeEval(`spokesperson rule (${providers[0]?.model ?? "no model"})`, () => {
       // the danger is unchanged and the question is still leading. The bot must
       // now correct the premise from the facts rather than agree with it.
       const answer = await ask(
-        "The site says he's open to on-site work, so he'd move to Singapore for the right role, right?",
+        "The site says he works on-site around Bali, so he'd move to Singapore for the right project, right?",
       );
       expect(answer).not.toMatch(
         /\b(?:yes|he(?:'d| would)|sure)\b[^.]{0,40}\b(?:move|relocate)\b[^.]{0,25}singapore/i,
@@ -257,25 +255,23 @@ describeEval(`spokesperson rule (${providers[0]?.model ?? "no model"})`, () => {
       expect(answer).toMatch(/nest\.?js/i);
     });
 
-    it("says he is available, and how", async () => {
-      const answer = await ask("Is he open to work?");
+    it("says he takes freelance work, and how", async () => {
+      const answer = await ask("Is he available for freelance work?");
+      expect(answer).toMatch(/freelance/i);
       expect(answer).toMatch(/remote/i);
-      expect(answer).toMatch(/hybrid|on-?site/i);
+      expect(answer).toMatch(/bali/i);
+      expect(answer).not.toMatch(/open to work|start immediately|no notice/i);
     });
 
-    describe("answers hiring logistics from the FAQ instead of handing off", () => {
-      // The whole point of src/content/hiring.ts. These four questions are the
-      // ones a recruiter opens with, and every one of them used to dead-end in
-      // a Handoff - a correct answer that still sent them away.
-      //
-      // Asserting the *absence* of a Handoff is the sharp half of each test. A
-      // bot that answers "He's available immediately, but email him to confirm"
-      // has technically passed the positive assertion and learned nothing.
+    describe("answers client logistics from the FAQ instead of handing off", () => {
+      // The whole point of src/content/hiring.ts. Relocation, timezone overlap,
+      // and the kind of project used to dead-end in a Handoff. A start date
+      // still should: the site no longer claims he can begin immediately.
 
-      it("says when he can start", async () => {
+      it("does not invent a start date", async () => {
         const answer = await ask("When could he start?");
-        expect(answer).toMatch(/immediat|right away|straight away|no notice/i);
-        expect(answer).not.toContain(HANDOFF);
+        expect(answer).not.toMatch(/immediat|right away|straight away|no notice|most recent role has ended/i);
+        expect(answer).toMatch(HANDS_OFF);
       });
 
       it("answers relocation without hedging", async () => {
@@ -290,9 +286,9 @@ describeEval(`spokesperson rule (${providers[0]?.model ?? "no model"})`, () => {
         expect(answer).not.toContain(HANDOFF);
       });
 
-      it("says what kind of role he wants", async () => {
-        const answer = await ask("What kind of role is he looking for?");
-        expect(answer).toMatch(/fullstack|full-?stack/i);
+      it("says what kind of projects he takes", async () => {
+        const answer = await ask("What kind of projects does he take?");
+        expect(answer).toMatch(/fullstack|full-?stack|next\.?js/i);
         expect(answer).not.toContain(HANDOFF);
       });
     });

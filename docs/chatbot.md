@@ -63,9 +63,9 @@ Note also what is *not* fetched: the GitHub profile bio, which still says "AI-fi
 from the site in 3c77ca4 and guarded against by name in `corpus.test.ts` and the evals. Pulling the bio
 would reintroduce that drift through an automatic door nobody reviews.
 
-**Recruiters ask about the FAQ, so keep it current.** `src/content/hiring.ts` answers start date,
-relocation, timezone overlap, and what he wants next. Those were Handoffs until they were written down,
-and they will silently become wrong ones if he takes a job and nobody edits the file.
+**Clients ask about the FAQ, so keep it current.** `src/content/hiring.ts` answers the kind of freelance
+work he takes, the stack, remote versus on-site, timezone overlap, and how to start. It must not grow a
+start date, a rate, or an employer. Those stay Handoffs, and a confident wrong one is worse than a Handoff.
 
 ## The guards
 

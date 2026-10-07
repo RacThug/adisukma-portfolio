@@ -33,6 +33,11 @@ deciding whether to hire you.
 page. If a fact is worth telling a recruiter, it is worth showing a Visitor. Bot-only material is limited to
 *behaviour* (refusal rules, tone, the Handoff text), never *facts*.
 
+**Amended.** The audience is a prospective freelance client, not a hiring partner. The Client FAQ must
+not claim he can start immediately, that a past role ending left him free, or name a current employer.
+Rates, timelines, and start dates stay a Handoff. The rest of this decision is unchanged: the Corpus is
+still the site, and silence is still a Handoff.
+
 **Amended by ADR 0005.** One class of fact is now read from outside this repository: how recently each
 allowlisted GitHub repo was pushed. The amendment is deliberately narrow - the *selection* of repos is still
 content Adi wrote, only the dates are live - and it exists because recency is the one property a written

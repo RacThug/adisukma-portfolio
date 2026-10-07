@@ -54,6 +54,10 @@ export const EMPTY_STATE = `Ask me anything about Adi. I answer from what's on t
 /** The nudge. Its copy is the site's own pitch, aimed at the one person who needs it. */
 export const NUDGE = "Short on time? Ask instead of skimming.";
 
+/** Shared by the launcher and the panel, so "seen once" survives the lazy load. */
+export const NUDGE_SEEN_KEY = "adi:chat:nudge-seen";
+export const NUDGE_DELAY_MS = 2500;
+
 /**
  * The AI disclosure, shown in the first frame rather than discovered three
  * messages in. A Visitor who works it out for themselves feels tricked; one who

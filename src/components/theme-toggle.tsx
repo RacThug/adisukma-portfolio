@@ -16,7 +16,6 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label="Toggle color theme"
       className="font-mono text-xs border border-line rounded-xs px-3 py-1.5 text-muted hover:text-ink hover:border-muted transition-colors cursor-pointer"
     >
       {/* both labels always rendered; the active theme's CSS shows the right one */}
